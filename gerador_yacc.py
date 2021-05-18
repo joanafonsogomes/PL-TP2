@@ -26,6 +26,9 @@ def p_Exp_add(p):
     "Exp : Exp '+' Termo" 
     p[0] = p[1] + p[3]
     print(p[0])
+    ger = str(p[1]) + ' ADD ' + str(p[3])
+    file_vm.write(ger)
+    file_vm.close()
 
 def p_Exp_sub(p):
     "Exp : Exp '-' Termo" 
@@ -98,6 +101,11 @@ parser =  yacc.yacc()
 # dicionario inicializado a vazio
 parser.registers = {}
 
+#GENERATE file.vm
+file = 'file.vm'
+file_vm = open(file, "w+")
 # reading input
 for linha in sys.stdin:
     result = parser.parse(linha)
+
+
