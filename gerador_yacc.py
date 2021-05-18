@@ -17,17 +17,20 @@ def p_Comando(p):
     Comando : Ler
            |  Escrever
            |  Despejar
-           | Atrib
+           |  Atrib
+           |  Exp
     """
     pass
 
 def p_Exp_add(p):
     "Exp : Exp '+' Termo" 
     p[0] = p[1] + p[3]
+    print(p[0])
 
 def p_Exp_sub(p):
     "Exp : Exp '-' Termo" 
     p[0] = p[1] - p[3]
+    print(p[0])
 
 def p_Exp_termo(p):
     "Exp : Termo"
@@ -36,11 +39,13 @@ def p_Exp_termo(p):
 def p_Termo_mul(p):
     "Termo : Termo '*' Factor"
     p[0] = p[1] * p[3]
+    print(p[0])
 
 def p_Termo_div(p):
     "Termo : Termo '/' Factor"
     if(p[3] != 0):
         p[0] = p[1] / p[3]
+        print(p[0])
     else:
         print ("Erro: divisao por 0, a continuar com 0...)")
         p[0] =0
@@ -66,6 +71,7 @@ def p_Ler(p):
     "Ler : '?' id"
     valor = input("Introduza o valor inteiro: ")
     p[0] = p.parser.registers.update({p[2]: int(valor)})
+    print(p[0])
 
 def p_Escrever(p):
     "Escrever : '!' id"
@@ -79,8 +85,9 @@ def p_Despejar(p):
 def p_Atrib(p):
     "Atrib : id '=' Exp"
     p.parser.registers.update({p[1]: p[3]})
-#Error value for syntax errors
+    print(p[0])
 
+#Error value for syntax errors
 def p_error(p):
     print("Syntax error in input!")
 
@@ -94,4 +101,3 @@ parser.registers = {}
 # reading input
 for linha in sys.stdin:
     result = parser.parse(linha)
-    print(result)
