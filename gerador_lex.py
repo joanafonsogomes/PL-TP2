@@ -5,7 +5,6 @@ literals = ['(',')','+','-','*','/','?','!','=']
 
 t_num = r'\d+'
 t_id = r'[a-z]' #apenas 26 registos
-
 t_ignore = "\t\n"
 
 def t_error(t):
