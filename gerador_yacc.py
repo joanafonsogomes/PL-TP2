@@ -3,6 +3,7 @@ import sys
 
 from gerador_lex import tokens 
 
+
 #Production rules
 def p_Comandos(p):
     "Comandos : Comandos Comando"
@@ -78,14 +79,26 @@ def p_Factor_group(p):
 
 def p_Ler(p):
     "Ler : '?' id"
+    global i
+    flag=1
     valor = input("Introduza o valor inteiro: ")
-    p.parser.registers.update({p[2]: int(valor)})
-    ger = 'PUSHI ' +valor+ '\n'+ 'STOREG 0\n'
-    file_vm.write(ger)
+    for key in p.parser.registers.keys():
+        if key == p[2]:
+            ger = 'PUSHI 0\nPUSHI ' +valor+ '\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
+            flag=0
+            file_vm.write(ger)
+    if(flag==1):
+        p.parser.registers.update({p[2]: i})
+        ger = 'PUSHI 0\nPUSHI ' +valor+ '\n'+ 'STOREG '+ str(i) +'\n'
+        i= i+1
+        file_vm.write(ger)
 
 def p_Escrever(p):
     "Escrever : '!' id"
-    print(p[2])
+    for key in p.parser.registers.keys():
+        if key == p[2]:
+            ger= 'PUSHG ' +str(p.parser.registers.get(key)) +'\nWRITEI\n'
+            file_vm.write(ger)
 
 def p_Despejar(p):
     "Despejar : '!' '!'"
@@ -99,7 +112,7 @@ def p_Atrib(p):
 def p_End(p):
     "End : '!' '!' '!'"
     # dá erro fp=sp, os apontadores vao para o mesmo sitio
-    file_vm.write('WRITEI\nSTOP')
+    file_vm.write('STOP')
     file_vm.close()
 
 #Error value for syntax errors
@@ -111,9 +124,9 @@ def p_error(p):
           .format(parser.state,
                   stack_state_str,
                   p))
+
 #Build the parser
 parser =  yacc.yacc()
-
 # my state
 # dicionario inicializado a vazio
 parser.registers = {}
@@ -121,6 +134,8 @@ parser.registers = {}
 
 
 #GENERATE file.vm
+global i
+i=0
 file = 'file.vm'
 file_vm = open(file, "w+")
 file_vm.write('START\n')
