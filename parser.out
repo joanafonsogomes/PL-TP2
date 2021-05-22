@@ -1,4 +1,4 @@
-Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+Created by PLY version 3.8 (http://www.dabeaz.com/ply)
 
 Grammar
 
@@ -7,48 +7,2359 @@ Rule 1     Comandos -> Comandos Comando
 Rule 2     Comandos -> Comando
 Rule 3     Comando -> Ler
 Rule 4     Comando -> Escrever
-Rule 5     Comando -> Despejar
-Rule 6     Comando -> Atrib
-Rule 7     Comando -> Exp
-Rule 8     Comando -> End
-Rule 9     Exp -> Exp + Termo
-Rule 10    Exp -> Exp - Termo
-Rule 11    Exp -> Termo
-Rule 12    Termo -> Termo * Factor
-Rule 13    Termo -> Termo / Factor
-Rule 14    Termo -> Factor
-Rule 15    Factor -> id
-Rule 16    Factor -> num
-Rule 17    Factor -> ( Exp )
-Rule 18    Escrever -> ! id
-Rule 19    Despejar -> ! !
-Rule 20    Atrib -> id = Exp
-Rule 21    End -> ! ! !
+Rule 5     Comando -> Atrib
+Rule 6     Comando -> Exp
+Rule 7     Comando -> End
+Rule 8     Comando -> Condition
+Rule 9     Comando -> Cicle
+Rule 10    Exp -> Exp + Termo
+Rule 11    Exp -> Exp - Termo
+Rule 12    Exp -> Termo
+Rule 13    Termo -> Termo * Factor
+Rule 14    Termo -> Termo / Factor
+Rule 15    Termo -> Factor
+Rule 16    Factor -> id
+Rule 17    Factor -> num
+Rule 18    Factor -> ( Exp )
+Rule 19    Ler -> ? id
+Rule 20    Escrever -> ! id
+Rule 21    Atrib -> id = Exp
+Rule 22    Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+Rule 23    Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+Rule 24    Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+Rule 25    Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+Rule 26    Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+Rule 27    Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+Rule 28    End -> ! ! !
 
 Terminals, with rules where they appear
 
-!                    : 18 19 19 21 21 21
-(                    : 17
-)                    : 17
-*                    : 12
-+                    : 9
--                    : 10
-/                    : 13
-=                    : 20
+!                    : 20 28 28 28
+(                    : 18 22 23 24 25 26 27
+)                    : 18 22 23 24 25 26 27
+*                    : 13
++                    : 10
+-                    : 11
+/                    : 14
+;                    : 27 27
+<                    : 23 25 27
+=                    : 21 24 25 26 26
+>                    : 22 24
+?                    : 19
+ELSE                 : 22 23 24 25 26
+FI                   : 22 23 24 25 26
+FOR                  : 27
+IF                   : 22 23 24 25 26
+ROF                  : 27
+THEN                 : 22 23 24 25 26
 error                : 
-id                   : 15 18 20
-num                  : 16
+id                   : 16 19 20 21
+num                  : 17
 
 Nonterminals, with rules where they appear
 
-Atrib                : 6
+Atrib                : 5 27 27
+Cicle                : 9
 Comando              : 1 2
-Comandos             : 1 0
-Despejar             : 5
-End                  : 8
+Comandos             : 1 22 22 23 23 24 24 25 25 26 26 27 0
+Condition            : 8
+End                  : 7
 Escrever             : 4
-Exp                  : 7 9 10 17 20
-Factor               : 12 13 14
+Exp                  : 6 10 11 18 21 22 23 24 25 26
+Factor               : 13 14 15 27 27
 Ler                  : 3
-Termo                : 9 10 11 12 13
+Termo                : 10 11 12 13 14 22 23 24 25 26
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Comandos
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Comando                        shift and go to state 14
+    Comandos                       shift and go to state 13
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Exp                            shift and go to state 2
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 1
+
+    (7) Comando -> End .
+
+    ELSE            reduce using rule 7 (Comando -> End .)
+    ?               reduce using rule 7 (Comando -> End .)
+    !               reduce using rule 7 (Comando -> End .)
+    id              reduce using rule 7 (Comando -> End .)
+    IF              reduce using rule 7 (Comando -> End .)
+    FOR             reduce using rule 7 (Comando -> End .)
+    num             reduce using rule 7 (Comando -> End .)
+    (               reduce using rule 7 (Comando -> End .)
+    FI              reduce using rule 7 (Comando -> End .)
+    $end            reduce using rule 7 (Comando -> End .)
+    ROF             reduce using rule 7 (Comando -> End .)
+
+
+state 2
+
+    (6) Comando -> Exp .
+    (10) Exp -> Exp . + Termo
+    (11) Exp -> Exp . - Termo
+
+    ELSE            reduce using rule 6 (Comando -> Exp .)
+    ?               reduce using rule 6 (Comando -> Exp .)
+    !               reduce using rule 6 (Comando -> Exp .)
+    id              reduce using rule 6 (Comando -> Exp .)
+    IF              reduce using rule 6 (Comando -> Exp .)
+    FOR             reduce using rule 6 (Comando -> Exp .)
+    num             reduce using rule 6 (Comando -> Exp .)
+    (               reduce using rule 6 (Comando -> Exp .)
+    FI              reduce using rule 6 (Comando -> Exp .)
+    $end            reduce using rule 6 (Comando -> Exp .)
+    ROF             reduce using rule 6 (Comando -> Exp .)
+    +               shift and go to state 19
+    -               shift and go to state 20
+
+
+state 3
+
+    (9) Comando -> Cicle .
+
+    ELSE            reduce using rule 9 (Comando -> Cicle .)
+    ?               reduce using rule 9 (Comando -> Cicle .)
+    !               reduce using rule 9 (Comando -> Cicle .)
+    id              reduce using rule 9 (Comando -> Cicle .)
+    IF              reduce using rule 9 (Comando -> Cicle .)
+    FOR             reduce using rule 9 (Comando -> Cicle .)
+    num             reduce using rule 9 (Comando -> Cicle .)
+    (               reduce using rule 9 (Comando -> Cicle .)
+    FI              reduce using rule 9 (Comando -> Cicle .)
+    $end            reduce using rule 9 (Comando -> Cicle .)
+    ROF             reduce using rule 9 (Comando -> Cicle .)
+
+
+state 4
+
+    (17) Factor -> num .
+
+    )               reduce using rule 17 (Factor -> num .)
+    *               reduce using rule 17 (Factor -> num .)
+    /               reduce using rule 17 (Factor -> num .)
+    +               reduce using rule 17 (Factor -> num .)
+    -               reduce using rule 17 (Factor -> num .)
+    ?               reduce using rule 17 (Factor -> num .)
+    !               reduce using rule 17 (Factor -> num .)
+    id              reduce using rule 17 (Factor -> num .)
+    IF              reduce using rule 17 (Factor -> num .)
+    FOR             reduce using rule 17 (Factor -> num .)
+    num             reduce using rule 17 (Factor -> num .)
+    (               reduce using rule 17 (Factor -> num .)
+    $end            reduce using rule 17 (Factor -> num .)
+    ;               reduce using rule 17 (Factor -> num .)
+    ELSE            reduce using rule 17 (Factor -> num .)
+    FI              reduce using rule 17 (Factor -> num .)
+    ROF             reduce using rule 17 (Factor -> num .)
+    >               reduce using rule 17 (Factor -> num .)
+    <               reduce using rule 17 (Factor -> num .)
+    =               reduce using rule 17 (Factor -> num .)
+
+
+state 5
+
+    (15) Termo -> Factor .
+
+    *               reduce using rule 15 (Termo -> Factor .)
+    /               reduce using rule 15 (Termo -> Factor .)
+    +               reduce using rule 15 (Termo -> Factor .)
+    -               reduce using rule 15 (Termo -> Factor .)
+    ELSE            reduce using rule 15 (Termo -> Factor .)
+    ?               reduce using rule 15 (Termo -> Factor .)
+    !               reduce using rule 15 (Termo -> Factor .)
+    id              reduce using rule 15 (Termo -> Factor .)
+    IF              reduce using rule 15 (Termo -> Factor .)
+    FOR             reduce using rule 15 (Termo -> Factor .)
+    num             reduce using rule 15 (Termo -> Factor .)
+    (               reduce using rule 15 (Termo -> Factor .)
+    FI              reduce using rule 15 (Termo -> Factor .)
+    )               reduce using rule 15 (Termo -> Factor .)
+    $end            reduce using rule 15 (Termo -> Factor .)
+    ;               reduce using rule 15 (Termo -> Factor .)
+    ROF             reduce using rule 15 (Termo -> Factor .)
+    >               reduce using rule 15 (Termo -> Factor .)
+    <               reduce using rule 15 (Termo -> Factor .)
+    =               reduce using rule 15 (Termo -> Factor .)
+
+
+state 6
+
+    (21) Atrib -> id . = Exp
+    (16) Factor -> id .
+
+    =               shift and go to state 21
+    *               reduce using rule 16 (Factor -> id .)
+    /               reduce using rule 16 (Factor -> id .)
+    +               reduce using rule 16 (Factor -> id .)
+    -               reduce using rule 16 (Factor -> id .)
+    ELSE            reduce using rule 16 (Factor -> id .)
+    ?               reduce using rule 16 (Factor -> id .)
+    !               reduce using rule 16 (Factor -> id .)
+    id              reduce using rule 16 (Factor -> id .)
+    IF              reduce using rule 16 (Factor -> id .)
+    FOR             reduce using rule 16 (Factor -> id .)
+    num             reduce using rule 16 (Factor -> id .)
+    (               reduce using rule 16 (Factor -> id .)
+    FI              reduce using rule 16 (Factor -> id .)
+    $end            reduce using rule 16 (Factor -> id .)
+    ROF             reduce using rule 16 (Factor -> id .)
+
+
+state 7
+
+    (20) Escrever -> ! . id
+    (28) End -> ! . ! !
+
+    id              shift and go to state 23
+    !               shift and go to state 22
+
+
+state 8
+
+    (18) Factor -> ( . Exp )
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 10
+    Exp                            shift and go to state 24
+    Factor                         shift and go to state 5
+
+state 9
+
+    (3) Comando -> Ler .
+
+    ELSE            reduce using rule 3 (Comando -> Ler .)
+    ?               reduce using rule 3 (Comando -> Ler .)
+    !               reduce using rule 3 (Comando -> Ler .)
+    id              reduce using rule 3 (Comando -> Ler .)
+    IF              reduce using rule 3 (Comando -> Ler .)
+    FOR             reduce using rule 3 (Comando -> Ler .)
+    num             reduce using rule 3 (Comando -> Ler .)
+    (               reduce using rule 3 (Comando -> Ler .)
+    FI              reduce using rule 3 (Comando -> Ler .)
+    $end            reduce using rule 3 (Comando -> Ler .)
+    ROF             reduce using rule 3 (Comando -> Ler .)
+
+
+state 10
+
+    (12) Exp -> Termo .
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               reduce using rule 12 (Exp -> Termo .)
+    +               reduce using rule 12 (Exp -> Termo .)
+    -               reduce using rule 12 (Exp -> Termo .)
+    ROF             reduce using rule 12 (Exp -> Termo .)
+    ?               reduce using rule 12 (Exp -> Termo .)
+    !               reduce using rule 12 (Exp -> Termo .)
+    id              reduce using rule 12 (Exp -> Termo .)
+    IF              reduce using rule 12 (Exp -> Termo .)
+    FOR             reduce using rule 12 (Exp -> Termo .)
+    num             reduce using rule 12 (Exp -> Termo .)
+    (               reduce using rule 12 (Exp -> Termo .)
+    ELSE            reduce using rule 12 (Exp -> Termo .)
+    FI              reduce using rule 12 (Exp -> Termo .)
+    $end            reduce using rule 12 (Exp -> Termo .)
+    ;               reduce using rule 12 (Exp -> Termo .)
+    >               reduce using rule 12 (Exp -> Termo .)
+    <               reduce using rule 12 (Exp -> Termo .)
+    =               reduce using rule 12 (Exp -> Termo .)
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 11
+
+    (19) Ler -> ? . id
+
+    id              shift and go to state 28
+
+
+state 12
+
+    (27) Cicle -> FOR . ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+
+    (               shift and go to state 29
+
+
+state 13
+
+    (0) S' -> Comandos .
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Comando                        shift and go to state 30
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Exp                            shift and go to state 2
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 14
+
+    (2) Comandos -> Comando .
+
+    FI              reduce using rule 2 (Comandos -> Comando .)
+    ?               reduce using rule 2 (Comandos -> Comando .)
+    !               reduce using rule 2 (Comandos -> Comando .)
+    id              reduce using rule 2 (Comandos -> Comando .)
+    IF              reduce using rule 2 (Comandos -> Comando .)
+    FOR             reduce using rule 2 (Comandos -> Comando .)
+    num             reduce using rule 2 (Comandos -> Comando .)
+    (               reduce using rule 2 (Comandos -> Comando .)
+    $end            reduce using rule 2 (Comandos -> Comando .)
+    ELSE            reduce using rule 2 (Comandos -> Comando .)
+    ROF             reduce using rule 2 (Comandos -> Comando .)
+
+
+state 15
+
+    (22) Condition -> IF . ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> IF . ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> IF . ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> IF . ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> IF . ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+
+    (               shift and go to state 31
+
+
+state 16
+
+    (5) Comando -> Atrib .
+
+    ELSE            reduce using rule 5 (Comando -> Atrib .)
+    ?               reduce using rule 5 (Comando -> Atrib .)
+    !               reduce using rule 5 (Comando -> Atrib .)
+    id              reduce using rule 5 (Comando -> Atrib .)
+    IF              reduce using rule 5 (Comando -> Atrib .)
+    FOR             reduce using rule 5 (Comando -> Atrib .)
+    num             reduce using rule 5 (Comando -> Atrib .)
+    (               reduce using rule 5 (Comando -> Atrib .)
+    FI              reduce using rule 5 (Comando -> Atrib .)
+    $end            reduce using rule 5 (Comando -> Atrib .)
+    ROF             reduce using rule 5 (Comando -> Atrib .)
+
+
+state 17
+
+    (4) Comando -> Escrever .
+
+    ELSE            reduce using rule 4 (Comando -> Escrever .)
+    ?               reduce using rule 4 (Comando -> Escrever .)
+    !               reduce using rule 4 (Comando -> Escrever .)
+    id              reduce using rule 4 (Comando -> Escrever .)
+    IF              reduce using rule 4 (Comando -> Escrever .)
+    FOR             reduce using rule 4 (Comando -> Escrever .)
+    num             reduce using rule 4 (Comando -> Escrever .)
+    (               reduce using rule 4 (Comando -> Escrever .)
+    FI              reduce using rule 4 (Comando -> Escrever .)
+    $end            reduce using rule 4 (Comando -> Escrever .)
+    ROF             reduce using rule 4 (Comando -> Escrever .)
+
+
+state 18
+
+    (8) Comando -> Condition .
+
+    ELSE            reduce using rule 8 (Comando -> Condition .)
+    ?               reduce using rule 8 (Comando -> Condition .)
+    !               reduce using rule 8 (Comando -> Condition .)
+    id              reduce using rule 8 (Comando -> Condition .)
+    IF              reduce using rule 8 (Comando -> Condition .)
+    FOR             reduce using rule 8 (Comando -> Condition .)
+    num             reduce using rule 8 (Comando -> Condition .)
+    (               reduce using rule 8 (Comando -> Condition .)
+    FI              reduce using rule 8 (Comando -> Condition .)
+    $end            reduce using rule 8 (Comando -> Condition .)
+    ROF             reduce using rule 8 (Comando -> Condition .)
+
+
+state 19
+
+    (10) Exp -> Exp + . Termo
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 32
+    Factor                         shift and go to state 5
+
+state 20
+
+    (11) Exp -> Exp - . Termo
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 33
+    Factor                         shift and go to state 5
+
+state 21
+
+    (21) Atrib -> id = . Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 10
+    Exp                            shift and go to state 34
+    Factor                         shift and go to state 5
+
+state 22
+
+    (28) End -> ! ! . !
+
+    !               shift and go to state 35
+
+
+state 23
+
+    (20) Escrever -> ! id .
+
+    ROF             reduce using rule 20 (Escrever -> ! id .)
+    ?               reduce using rule 20 (Escrever -> ! id .)
+    !               reduce using rule 20 (Escrever -> ! id .)
+    id              reduce using rule 20 (Escrever -> ! id .)
+    IF              reduce using rule 20 (Escrever -> ! id .)
+    FOR             reduce using rule 20 (Escrever -> ! id .)
+    num             reduce using rule 20 (Escrever -> ! id .)
+    (               reduce using rule 20 (Escrever -> ! id .)
+    FI              reduce using rule 20 (Escrever -> ! id .)
+    ELSE            reduce using rule 20 (Escrever -> ! id .)
+    $end            reduce using rule 20 (Escrever -> ! id .)
+
+
+state 24
+
+    (18) Factor -> ( Exp . )
+    (10) Exp -> Exp . + Termo
+    (11) Exp -> Exp . - Termo
+
+    )               shift and go to state 36
+    +               shift and go to state 19
+    -               shift and go to state 20
+
+
+state 25
+
+    (16) Factor -> id .
+
+    )               reduce using rule 16 (Factor -> id .)
+    *               reduce using rule 16 (Factor -> id .)
+    /               reduce using rule 16 (Factor -> id .)
+    +               reduce using rule 16 (Factor -> id .)
+    -               reduce using rule 16 (Factor -> id .)
+    ?               reduce using rule 16 (Factor -> id .)
+    !               reduce using rule 16 (Factor -> id .)
+    id              reduce using rule 16 (Factor -> id .)
+    IF              reduce using rule 16 (Factor -> id .)
+    FOR             reduce using rule 16 (Factor -> id .)
+    num             reduce using rule 16 (Factor -> id .)
+    (               reduce using rule 16 (Factor -> id .)
+    $end            reduce using rule 16 (Factor -> id .)
+    ;               reduce using rule 16 (Factor -> id .)
+    ELSE            reduce using rule 16 (Factor -> id .)
+    FI              reduce using rule 16 (Factor -> id .)
+    ROF             reduce using rule 16 (Factor -> id .)
+    >               reduce using rule 16 (Factor -> id .)
+    <               reduce using rule 16 (Factor -> id .)
+    =               reduce using rule 16 (Factor -> id .)
+
+
+state 26
+
+    (13) Termo -> Termo * . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Factor                         shift and go to state 37
+
+state 27
+
+    (14) Termo -> Termo / . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Factor                         shift and go to state 38
+
+state 28
+
+    (19) Ler -> ? id .
+
+    ELSE            reduce using rule 19 (Ler -> ? id .)
+    ?               reduce using rule 19 (Ler -> ? id .)
+    !               reduce using rule 19 (Ler -> ? id .)
+    id              reduce using rule 19 (Ler -> ? id .)
+    IF              reduce using rule 19 (Ler -> ? id .)
+    FOR             reduce using rule 19 (Ler -> ? id .)
+    num             reduce using rule 19 (Ler -> ? id .)
+    (               reduce using rule 19 (Ler -> ? id .)
+    ROF             reduce using rule 19 (Ler -> ? id .)
+    FI              reduce using rule 19 (Ler -> ? id .)
+    $end            reduce using rule 19 (Ler -> ? id .)
+
+
+state 29
+
+    (27) Cicle -> FOR ( . Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (21) Atrib -> . id = Exp
+
+    id              shift and go to state 40
+
+    Atrib                          shift and go to state 39
+
+state 30
+
+    (1) Comandos -> Comandos Comando .
+
+    FI              reduce using rule 1 (Comandos -> Comandos Comando .)
+    ?               reduce using rule 1 (Comandos -> Comandos Comando .)
+    !               reduce using rule 1 (Comandos -> Comandos Comando .)
+    id              reduce using rule 1 (Comandos -> Comandos Comando .)
+    IF              reduce using rule 1 (Comandos -> Comandos Comando .)
+    FOR             reduce using rule 1 (Comandos -> Comandos Comando .)
+    num             reduce using rule 1 (Comandos -> Comandos Comando .)
+    (               reduce using rule 1 (Comandos -> Comandos Comando .)
+    $end            reduce using rule 1 (Comandos -> Comandos Comando .)
+    ELSE            reduce using rule 1 (Comandos -> Comandos Comando .)
+    ROF             reduce using rule 1 (Comandos -> Comandos Comando .)
+
+
+state 31
+
+    (22) Condition -> IF ( . Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> IF ( . Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> IF ( . Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> IF ( . Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> IF ( . Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 10
+    Exp                            shift and go to state 41
+    Factor                         shift and go to state 5
+
+state 32
+
+    (10) Exp -> Exp + Termo .
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               reduce using rule 10 (Exp -> Exp + Termo .)
+    +               reduce using rule 10 (Exp -> Exp + Termo .)
+    -               reduce using rule 10 (Exp -> Exp + Termo .)
+    ROF             reduce using rule 10 (Exp -> Exp + Termo .)
+    ?               reduce using rule 10 (Exp -> Exp + Termo .)
+    !               reduce using rule 10 (Exp -> Exp + Termo .)
+    id              reduce using rule 10 (Exp -> Exp + Termo .)
+    IF              reduce using rule 10 (Exp -> Exp + Termo .)
+    FOR             reduce using rule 10 (Exp -> Exp + Termo .)
+    num             reduce using rule 10 (Exp -> Exp + Termo .)
+    (               reduce using rule 10 (Exp -> Exp + Termo .)
+    ELSE            reduce using rule 10 (Exp -> Exp + Termo .)
+    FI              reduce using rule 10 (Exp -> Exp + Termo .)
+    $end            reduce using rule 10 (Exp -> Exp + Termo .)
+    ;               reduce using rule 10 (Exp -> Exp + Termo .)
+    >               reduce using rule 10 (Exp -> Exp + Termo .)
+    <               reduce using rule 10 (Exp -> Exp + Termo .)
+    =               reduce using rule 10 (Exp -> Exp + Termo .)
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 33
+
+    (11) Exp -> Exp - Termo .
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               reduce using rule 11 (Exp -> Exp - Termo .)
+    +               reduce using rule 11 (Exp -> Exp - Termo .)
+    -               reduce using rule 11 (Exp -> Exp - Termo .)
+    ROF             reduce using rule 11 (Exp -> Exp - Termo .)
+    ?               reduce using rule 11 (Exp -> Exp - Termo .)
+    !               reduce using rule 11 (Exp -> Exp - Termo .)
+    id              reduce using rule 11 (Exp -> Exp - Termo .)
+    IF              reduce using rule 11 (Exp -> Exp - Termo .)
+    FOR             reduce using rule 11 (Exp -> Exp - Termo .)
+    num             reduce using rule 11 (Exp -> Exp - Termo .)
+    (               reduce using rule 11 (Exp -> Exp - Termo .)
+    ELSE            reduce using rule 11 (Exp -> Exp - Termo .)
+    FI              reduce using rule 11 (Exp -> Exp - Termo .)
+    $end            reduce using rule 11 (Exp -> Exp - Termo .)
+    ;               reduce using rule 11 (Exp -> Exp - Termo .)
+    >               reduce using rule 11 (Exp -> Exp - Termo .)
+    <               reduce using rule 11 (Exp -> Exp - Termo .)
+    =               reduce using rule 11 (Exp -> Exp - Termo .)
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 34
+
+    (21) Atrib -> id = Exp .
+    (10) Exp -> Exp . + Termo
+    (11) Exp -> Exp . - Termo
+
+    FI              reduce using rule 21 (Atrib -> id = Exp .)
+    ?               reduce using rule 21 (Atrib -> id = Exp .)
+    !               reduce using rule 21 (Atrib -> id = Exp .)
+    id              reduce using rule 21 (Atrib -> id = Exp .)
+    IF              reduce using rule 21 (Atrib -> id = Exp .)
+    FOR             reduce using rule 21 (Atrib -> id = Exp .)
+    num             reduce using rule 21 (Atrib -> id = Exp .)
+    (               reduce using rule 21 (Atrib -> id = Exp .)
+    ELSE            reduce using rule 21 (Atrib -> id = Exp .)
+    ROF             reduce using rule 21 (Atrib -> id = Exp .)
+    ;               reduce using rule 21 (Atrib -> id = Exp .)
+    )               reduce using rule 21 (Atrib -> id = Exp .)
+    $end            reduce using rule 21 (Atrib -> id = Exp .)
+    +               shift and go to state 19
+    -               shift and go to state 20
+
+
+state 35
+
+    (28) End -> ! ! ! .
+
+    ELSE            reduce using rule 28 (End -> ! ! ! .)
+    ?               reduce using rule 28 (End -> ! ! ! .)
+    !               reduce using rule 28 (End -> ! ! ! .)
+    id              reduce using rule 28 (End -> ! ! ! .)
+    IF              reduce using rule 28 (End -> ! ! ! .)
+    FOR             reduce using rule 28 (End -> ! ! ! .)
+    num             reduce using rule 28 (End -> ! ! ! .)
+    (               reduce using rule 28 (End -> ! ! ! .)
+    ROF             reduce using rule 28 (End -> ! ! ! .)
+    FI              reduce using rule 28 (End -> ! ! ! .)
+    $end            reduce using rule 28 (End -> ! ! ! .)
+
+
+state 36
+
+    (18) Factor -> ( Exp ) .
+
+    )               reduce using rule 18 (Factor -> ( Exp ) .)
+    *               reduce using rule 18 (Factor -> ( Exp ) .)
+    /               reduce using rule 18 (Factor -> ( Exp ) .)
+    +               reduce using rule 18 (Factor -> ( Exp ) .)
+    -               reduce using rule 18 (Factor -> ( Exp ) .)
+    ?               reduce using rule 18 (Factor -> ( Exp ) .)
+    !               reduce using rule 18 (Factor -> ( Exp ) .)
+    id              reduce using rule 18 (Factor -> ( Exp ) .)
+    IF              reduce using rule 18 (Factor -> ( Exp ) .)
+    FOR             reduce using rule 18 (Factor -> ( Exp ) .)
+    num             reduce using rule 18 (Factor -> ( Exp ) .)
+    (               reduce using rule 18 (Factor -> ( Exp ) .)
+    $end            reduce using rule 18 (Factor -> ( Exp ) .)
+    ;               reduce using rule 18 (Factor -> ( Exp ) .)
+    ELSE            reduce using rule 18 (Factor -> ( Exp ) .)
+    FI              reduce using rule 18 (Factor -> ( Exp ) .)
+    ROF             reduce using rule 18 (Factor -> ( Exp ) .)
+    >               reduce using rule 18 (Factor -> ( Exp ) .)
+    <               reduce using rule 18 (Factor -> ( Exp ) .)
+    =               reduce using rule 18 (Factor -> ( Exp ) .)
+
+
+state 37
+
+    (13) Termo -> Termo * Factor .
+
+    *               reduce using rule 13 (Termo -> Termo * Factor .)
+    /               reduce using rule 13 (Termo -> Termo * Factor .)
+    +               reduce using rule 13 (Termo -> Termo * Factor .)
+    -               reduce using rule 13 (Termo -> Termo * Factor .)
+    ELSE            reduce using rule 13 (Termo -> Termo * Factor .)
+    ?               reduce using rule 13 (Termo -> Termo * Factor .)
+    !               reduce using rule 13 (Termo -> Termo * Factor .)
+    id              reduce using rule 13 (Termo -> Termo * Factor .)
+    IF              reduce using rule 13 (Termo -> Termo * Factor .)
+    FOR             reduce using rule 13 (Termo -> Termo * Factor .)
+    num             reduce using rule 13 (Termo -> Termo * Factor .)
+    (               reduce using rule 13 (Termo -> Termo * Factor .)
+    FI              reduce using rule 13 (Termo -> Termo * Factor .)
+    )               reduce using rule 13 (Termo -> Termo * Factor .)
+    $end            reduce using rule 13 (Termo -> Termo * Factor .)
+    ;               reduce using rule 13 (Termo -> Termo * Factor .)
+    ROF             reduce using rule 13 (Termo -> Termo * Factor .)
+    >               reduce using rule 13 (Termo -> Termo * Factor .)
+    <               reduce using rule 13 (Termo -> Termo * Factor .)
+    =               reduce using rule 13 (Termo -> Termo * Factor .)
+
+
+state 38
+
+    (14) Termo -> Termo / Factor .
+
+    *               reduce using rule 14 (Termo -> Termo / Factor .)
+    /               reduce using rule 14 (Termo -> Termo / Factor .)
+    +               reduce using rule 14 (Termo -> Termo / Factor .)
+    -               reduce using rule 14 (Termo -> Termo / Factor .)
+    ELSE            reduce using rule 14 (Termo -> Termo / Factor .)
+    ?               reduce using rule 14 (Termo -> Termo / Factor .)
+    !               reduce using rule 14 (Termo -> Termo / Factor .)
+    id              reduce using rule 14 (Termo -> Termo / Factor .)
+    IF              reduce using rule 14 (Termo -> Termo / Factor .)
+    FOR             reduce using rule 14 (Termo -> Termo / Factor .)
+    num             reduce using rule 14 (Termo -> Termo / Factor .)
+    (               reduce using rule 14 (Termo -> Termo / Factor .)
+    FI              reduce using rule 14 (Termo -> Termo / Factor .)
+    )               reduce using rule 14 (Termo -> Termo / Factor .)
+    $end            reduce using rule 14 (Termo -> Termo / Factor .)
+    ;               reduce using rule 14 (Termo -> Termo / Factor .)
+    ROF             reduce using rule 14 (Termo -> Termo / Factor .)
+    >               reduce using rule 14 (Termo -> Termo / Factor .)
+    <               reduce using rule 14 (Termo -> Termo / Factor .)
+    =               reduce using rule 14 (Termo -> Termo / Factor .)
+
+
+state 39
+
+    (27) Cicle -> FOR ( Atrib . ; Factor < Factor ; Atrib ) Comandos ROF
+
+    ;               shift and go to state 42
+
+
+state 40
+
+    (21) Atrib -> id . = Exp
+
+    =               shift and go to state 21
+
+
+state 41
+
+    (22) Condition -> IF ( Exp . > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> IF ( Exp . < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> IF ( Exp . > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> IF ( Exp . < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> IF ( Exp . = = Termo ) THEN Comandos ELSE Comandos FI
+    (10) Exp -> Exp . + Termo
+    (11) Exp -> Exp . - Termo
+
+    >               shift and go to state 45
+    <               shift and go to state 44
+    =               shift and go to state 43
+    +               shift and go to state 19
+    -               shift and go to state 20
+
+
+state 42
+
+    (27) Cicle -> FOR ( Atrib ; . Factor < Factor ; Atrib ) Comandos ROF
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Factor                         shift and go to state 46
+
+state 43
+
+    (26) Condition -> IF ( Exp = . = Termo ) THEN Comandos ELSE Comandos FI
+
+    =               shift and go to state 47
+
+
+state 44
+
+    (23) Condition -> IF ( Exp < . Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> IF ( Exp < . = Termo ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    =               shift and go to state 49
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 48
+    Factor                         shift and go to state 5
+
+state 45
+
+    (22) Condition -> IF ( Exp > . Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> IF ( Exp > . = Termo ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    =               shift and go to state 51
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 50
+    Factor                         shift and go to state 5
+
+state 46
+
+    (27) Cicle -> FOR ( Atrib ; Factor . < Factor ; Atrib ) Comandos ROF
+
+    <               shift and go to state 52
+
+
+state 47
+
+    (26) Condition -> IF ( Exp = = . Termo ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 53
+    Factor                         shift and go to state 5
+
+state 48
+
+    (23) Condition -> IF ( Exp < Termo . ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               shift and go to state 54
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 49
+
+    (25) Condition -> IF ( Exp < = . Termo ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 55
+    Factor                         shift and go to state 5
+
+state 50
+
+    (22) Condition -> IF ( Exp > Termo . ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               shift and go to state 56
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 51
+
+    (24) Condition -> IF ( Exp > = . Termo ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Termo                          shift and go to state 57
+    Factor                         shift and go to state 5
+
+state 52
+
+    (27) Cicle -> FOR ( Atrib ; Factor < . Factor ; Atrib ) Comandos ROF
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    id              shift and go to state 25
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Factor                         shift and go to state 58
+
+state 53
+
+    (26) Condition -> IF ( Exp = = Termo . ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               shift and go to state 59
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 54
+
+    (23) Condition -> IF ( Exp < Termo ) . THEN Comandos ELSE Comandos FI
+
+    THEN            shift and go to state 60
+
+
+state 55
+
+    (25) Condition -> IF ( Exp < = Termo . ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               shift and go to state 61
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 56
+
+    (22) Condition -> IF ( Exp > Termo ) . THEN Comandos ELSE Comandos FI
+
+    THEN            shift and go to state 62
+
+
+state 57
+
+    (24) Condition -> IF ( Exp > = Termo . ) THEN Comandos ELSE Comandos FI
+    (13) Termo -> Termo . * Factor
+    (14) Termo -> Termo . / Factor
+
+    )               shift and go to state 63
+    *               shift and go to state 26
+    /               shift and go to state 27
+
+
+state 58
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor . ; Atrib ) Comandos ROF
+
+    ;               shift and go to state 64
+
+
+state 59
+
+    (26) Condition -> IF ( Exp = = Termo ) . THEN Comandos ELSE Comandos FI
+
+    THEN            shift and go to state 65
+
+
+state 60
+
+    (23) Condition -> IF ( Exp < Termo ) THEN . Comandos ELSE Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 66
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 61
+
+    (25) Condition -> IF ( Exp < = Termo ) . THEN Comandos ELSE Comandos FI
+
+    THEN            shift and go to state 67
+
+
+state 62
+
+    (22) Condition -> IF ( Exp > Termo ) THEN . Comandos ELSE Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 68
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 63
+
+    (24) Condition -> IF ( Exp > = Termo ) . THEN Comandos ELSE Comandos FI
+
+    THEN            shift and go to state 69
+
+
+state 64
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor ; . Atrib ) Comandos ROF
+    (21) Atrib -> . id = Exp
+
+    id              shift and go to state 40
+
+    Atrib                          shift and go to state 70
+
+state 65
+
+    (26) Condition -> IF ( Exp = = Termo ) THEN . Comandos ELSE Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 71
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 66
+
+    (23) Condition -> IF ( Exp < Termo ) THEN Comandos . ELSE Comandos FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ELSE            shift and go to state 72
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 67
+
+    (25) Condition -> IF ( Exp < = Termo ) THEN . Comandos ELSE Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 73
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 68
+
+    (22) Condition -> IF ( Exp > Termo ) THEN Comandos . ELSE Comandos FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ELSE            shift and go to state 74
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 69
+
+    (24) Condition -> IF ( Exp > = Termo ) THEN . Comandos ELSE Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 75
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 70
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib . ) Comandos ROF
+
+    )               shift and go to state 76
+
+
+state 71
+
+    (26) Condition -> IF ( Exp = = Termo ) THEN Comandos . ELSE Comandos FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ELSE            shift and go to state 77
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 72
+
+    (23) Condition -> IF ( Exp < Termo ) THEN Comandos ELSE . Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 78
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 73
+
+    (25) Condition -> IF ( Exp < = Termo ) THEN Comandos . ELSE Comandos FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ELSE            shift and go to state 79
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 74
+
+    (22) Condition -> IF ( Exp > Termo ) THEN Comandos ELSE . Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 80
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 75
+
+    (24) Condition -> IF ( Exp > = Termo ) THEN Comandos . ELSE Comandos FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ELSE            shift and go to state 81
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 76
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) . Comandos ROF
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 82
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 77
+
+    (26) Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE . Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 83
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 78
+
+    (23) Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos . FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    FI              shift and go to state 84
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 79
+
+    (25) Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE . Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 85
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 80
+
+    (22) Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos . FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    FI              shift and go to state 86
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 81
+
+    (24) Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE . Comandos FI
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Comandos                       shift and go to state 87
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 14
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 82
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos . ROF
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    ROF             shift and go to state 88
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 83
+
+    (26) Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos . FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    FI              shift and go to state 89
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 84
+
+    (23) Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .
+
+    ELSE            reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    ?               reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    !               reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    id              reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    IF              reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    FOR             reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    num             reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    (               reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    ROF             reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    FI              reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+    $end            reduce using rule 23 (Condition -> IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI .)
+
+
+state 85
+
+    (25) Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos . FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    FI              shift and go to state 90
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 86
+
+    (22) Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .
+
+    ELSE            reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    ?               reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    !               reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    id              reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    IF              reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    FOR             reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    num             reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    (               reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    ROF             reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    FI              reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+    $end            reduce using rule 22 (Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI .)
+
+
+state 87
+
+    (24) Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos . FI
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Ler
+    (4) Comando -> . Escrever
+    (5) Comando -> . Atrib
+    (6) Comando -> . Exp
+    (7) Comando -> . End
+    (8) Comando -> . Condition
+    (9) Comando -> . Cicle
+    (19) Ler -> . ? id
+    (20) Escrever -> . ! id
+    (21) Atrib -> . id = Exp
+    (10) Exp -> . Exp + Termo
+    (11) Exp -> . Exp - Termo
+    (12) Exp -> . Termo
+    (28) End -> . ! ! !
+    (22) Condition -> . IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
+    (23) Condition -> . IF ( Exp < Termo ) THEN Comandos ELSE Comandos FI
+    (24) Condition -> . IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI
+    (25) Condition -> . IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI
+    (26) Condition -> . IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI
+    (27) Cicle -> . FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF
+    (13) Termo -> . Termo * Factor
+    (14) Termo -> . Termo / Factor
+    (15) Termo -> . Factor
+    (16) Factor -> . id
+    (17) Factor -> . num
+    (18) Factor -> . ( Exp )
+
+    FI              shift and go to state 91
+    ?               shift and go to state 11
+    !               shift and go to state 7
+    id              shift and go to state 6
+    IF              shift and go to state 15
+    FOR             shift and go to state 12
+    num             shift and go to state 4
+    (               shift and go to state 8
+
+    Atrib                          shift and go to state 16
+    End                            shift and go to state 1
+    Exp                            shift and go to state 2
+    Escrever                       shift and go to state 17
+    Ler                            shift and go to state 9
+    Comando                        shift and go to state 30
+    Factor                         shift and go to state 5
+    Termo                          shift and go to state 10
+    Cicle                          shift and go to state 3
+    Condition                      shift and go to state 18
+
+state 88
+
+    (27) Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .
+
+    ELSE            reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    ?               reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    !               reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    id              reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    IF              reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    FOR             reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    num             reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    (               reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    ROF             reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    FI              reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+    $end            reduce using rule 27 (Cicle -> FOR ( Atrib ; Factor < Factor ; Atrib ) Comandos ROF .)
+
+
+state 89
+
+    (26) Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .
+
+    ELSE            reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    ?               reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    !               reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    id              reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    IF              reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    FOR             reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    num             reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    (               reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    ROF             reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    FI              reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+    $end            reduce using rule 26 (Condition -> IF ( Exp = = Termo ) THEN Comandos ELSE Comandos FI .)
+
+
+state 90
+
+    (25) Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .
+
+    ELSE            reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    ?               reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    !               reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    id              reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    IF              reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    FOR             reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    num             reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    (               reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    ROF             reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    FI              reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+    $end            reduce using rule 25 (Condition -> IF ( Exp < = Termo ) THEN Comandos ELSE Comandos FI .)
+
+
+state 91
+
+    (24) Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .
+
+    ELSE            reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    ?               reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    !               reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    id              reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    IF              reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    FOR             reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    num             reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    (               reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    ROF             reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    FI              reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
+    $end            reduce using rule 24 (Condition -> IF ( Exp > = Termo ) THEN Comandos ELSE Comandos FI .)
 
