@@ -6,9 +6,14 @@ reserved = {
     'else' : 'ELSE',
     'for' : 'FOR',
     'fi' : 'FI',
-    'rof' : 'ROF'
+    'rof' : 'ROF',
+    'write' : 'WRITE',
+    'print' : 'PRINT',
+    'read'  :'READ',
+    'start' :'START',
+    'end' : 'END',
  }
-tokens = ['num','id'] + list(reserved.values())
+tokens = ['num','id','frase'] + list(reserved.values())
 literals = ['(',')','>','<','+','-','*','/','?','!',';','=']
 
 def t_id(t):
@@ -16,6 +21,7 @@ def t_id(t):
      t.type = reserved.get(t.value,'id')    # Check for reserved words
      return t
 t_num = r'\d+'
+t_frase = r'".*"'
 t_ignore = "\t\n"
 
 def t_error(t):

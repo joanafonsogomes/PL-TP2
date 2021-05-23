@@ -14,10 +14,12 @@ def p_Comando_unico(p):
 
 def p_Comando(p):
     """
-    Comando : Ler
-           |  Escrever
+    Comando : Reading
+           |  Writing
+           |  Printing
            |  Atrib
            |  Exp
+           |  Start
            |  End
            |  Condition
            |  Cicle
@@ -78,31 +80,38 @@ def p_Factor_group(p):
 
 ##############WORKING ON IT#####################3
 
-def p_Ler(p):
-    ##falta ler da vm e nao do python!!!
-    "Ler : '?' id"
+def p_Reading(p):
+    "Reading : READ id"
     global i
     flag=1
-    valor = input("Introduza o valor inteiro: ")
     for key in p.parser.registers.keys():
         if key == p[2]:
-            p[0] = 'PUSHI ' +valor+ '\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
+            p[0] = 'READ\nATOI\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
             flag=0
             file_vm.write(p[0])
     if(flag==1):
         p.parser.registers.update({p[2]: i})
-        p[0] = 'PUSHI 0\nPUSHI ' +valor+ '\n'+ 'STOREG '+ str(i) +'\n'
+        p[0] = 'PUSHI 0\nREAD\nATOI\n'+ 'STOREG '+ str(i) +'\n'
         i= i+1
-        # file_vm.write(p[0])
 
-def p_Escrever(p):
-    "Escrever : '!' id"
-    for key in p.parser.registers.keys():
-        if key == p[2]:
-            p[0]= 'PUSHG ' +(p.parser.registers.get(key)) +'\nWRITEI\n'
-            # file_vm.write(p[0])
+def p_Writing(p):
+    "Writing : WRITE id"
+    p[0]= p[2]+ 'WRITEI\n'
+
+def p_Printing(p):
+    "Printing : PRINT '(' frase ')'"
+    p[0] = 'PUSHS ' + p[3] + '\n' + 'WRITES\n' 
 
 ##############wORKING UNTIL HERE################
+
+def p_Start(p):
+    "Start : START"
+    p[0]='START\n'
+
+def p_End(p):
+    "End : END"
+    p[0]='STOP'
+
 def p_Atrib(p):
     "Atrib : id '=' Exp"
     global i
@@ -155,24 +164,18 @@ def p_Cicle_maior(p):
     p[0] = p[3] + 'ciclo1:\n' + p[5] + p[7] + 'SUP\n'  +'JZ fim\n' + p[11] + p[9]  + 'JUMP ciclo1\n' + 'fim:\n' 
 
 def p_Cicle_menor_igual(p):
-    "Cicle : FOR '(' Atrib ';' Factor '<''=' Factor ';' Atrib ')' Comandos ROF"
+    "Cicle : FOR '(' Atrib ';' Factor '<' '=' Factor ';' Atrib ')' Comandos ROF"
     p[0] = p[3] + 'ciclo1:\n' + p[5] + p[7] + 'INFEQ\n'  +'JZ fim\n' + p[11] + p[9]  + 'JUMP ciclo1\n' + 'fim:\n' 
 
 def p_Cicle_maior_igual(p):
-    "Cicle : FOR '(' Atrib ';' Factor '<' Factor ';' Atrib ')' Comandos ROF"
+    "Cicle : FOR '(' Atrib ';' Factor '>' '=' Factor ';' Atrib ')' Comandos ROF"
     p[0] = p[3] + 'ciclo1:\n' + p[5] + p[7] + 'SUPEQ\n'  +'JZ fim\n' + p[11] + p[9]  + 'JUMP ciclo1\n' + 'fim:\n' 
 
 
 def p_Cicle_igual(p):
-    "Cicle : FOR '(' Atrib ';' Factor '<' Factor ';' Atrib ')' Comandos ROF"
+    "Cicle : FOR '(' Atrib ';' Factor '=' '=' Factor ';' Atrib ')' Comandos ROF"
     p[0] = p[3] + 'ciclo1:\n' + p[5] + p[7] + 'EQUAL\n'  +'JZ fim\n' + p[11] + p[9]  + 'JUMP ciclo1\n' + 'fim:\n' 
 
-
-def p_End(p):
-    "End : '!' '!' '!'"
-    # da erro fp=sp, os apontadores vao para o mesmo sitio
-    p[0]='STOP'
-    file_vm.close()
 
 #Error value for syntax errors
 def p_error(p):
@@ -197,9 +200,8 @@ global i
 i=0
 file = 'file.vm'
 file_vm = open(file, "w+")
-file_vm.write('START\n')
 # reading input
 for linha in fileinput.input():
     result = parser.parse(linha)
     file_vm.write(str(result))
-
+file_vm.close()
