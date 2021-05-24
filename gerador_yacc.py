@@ -23,6 +23,8 @@ def p_Comando(p):
            |  End
            |  Condition
            |  Cicle
+           |  Array
+           |  Matriz
     """
     p[0] = p[1]  
 
@@ -78,7 +80,6 @@ def p_Factor_group(p):
     p[0] = p[2]
     # file_vm.write(p[0])
 
-##############WORKING ON IT#####################3
 
 def p_Reading(p):
     "Reading : READ id"
@@ -102,7 +103,6 @@ def p_Printing(p):
     "Printing : PRINT '(' frase ')'"
     p[0] = 'PUSHS ' + p[3] + '\n' + 'WRITES\n' 
 
-##############wORKING UNTIL HERE################
 
 def p_Start(p):
     "Start : START"
@@ -177,6 +177,34 @@ def p_Cicle_igual(p):
     p[0] = p[3] + 'ciclo1:\n' + p[5] + p[7] + 'EQUAL\n'  +'JZ fim\n' + p[11] + p[9]  + 'JUMP ciclo1\n' + 'fim:\n' 
 
 
+def p_Array(p):
+    "Array : id '[' num ']' FI"
+    global i
+    p.parser.registers.update({p[1]: i})
+    p[0] = 'PUSHN ' +p[3]+ '\n'
+    i= i+ int(p[3])
+
+def p_Array_Atrib(p):
+    "Array : id '[' num ']' '=' num"
+    indice = p.parser.registers.get(p[1])
+    p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ p[3]+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
+
+def p_Matriz(p):
+    "Matriz : id '[' num ']' '[' num ']' FI"
+    global i
+    m = int(p[3]) *  int(p[6])
+    p.parser.registers.update({p[1]: i})
+    p[0] = 'PUSHN ' +str(m)+ '\n'
+    i= i+ int(p[3])
+
+
+def p_Matriz_Atrib(p):
+    "Matriz : id '[' num ']' '[' num ']' '=' num"
+    m = int(p[3]) *  int(p[6])
+    indice = p.parser.registers.get(p[1])
+    p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ str(m)+'\n' +'PUSHI '+ p[9] +'\n'+ 'STOREN\n' 
+
+
 #Error value for syntax errors
 def p_error(p):
 # get formatted representation of stack
@@ -192,12 +220,14 @@ parser =  yacc.yacc()
 # my state
 # dicionario inicializado a vazio
 parser.registers = {}
-
+parser.array_registers ={}
 
 
 #GENERATE file.vm
 global i
+global a 
 i=0
+a=0
 file = 'file.vm'
 file_vm = open(file, "w+")
 # reading input

@@ -14,7 +14,7 @@ reserved = {
     'end' : 'END',
  }
 tokens = ['num','id','frase'] + list(reserved.values())
-literals = ['(',')','>','<','+','-','*','/','?','!',';','=']
+literals = ['(',')','>','<','+','-','*','/','?','!',';','=',']','[']
 
 def t_id(t):
      r'[a-z][a-zA-Z_0-9]*'
