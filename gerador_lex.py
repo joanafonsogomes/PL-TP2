@@ -1,6 +1,7 @@
 import ply.lex as lex
 
 reserved = {
+    'print' : 'PRINT',
     'if' : 'IF',
     'then' : 'THEN',
     'else' : 'ELSE',
@@ -8,20 +9,25 @@ reserved = {
     'fi' : 'FI',
     'rof' : 'ROF',
     'write' : 'WRITE',
-    'print' : 'PRINT',
     'read'  :'READ',
     'start' :'START',
     'end' : 'END',
  }
 tokens = ['num','id','frase'] + list(reserved.values())
-literals = ['(',')','>','<','+','-','*','/','?','!',';','=',']','[']
+literals = ['(',')','!','>','<','+','-','*','/',';','=',']','[']
+
+t_num = r'\d+'
 
 def t_id(t):
      r'[a-z][a-zA-Z_0-9]*'
      t.type = reserved.get(t.value,'id')    # Check for reserved words
      return t
-t_num = r'\d+'
-t_frase = r'".*"'
+
+def t_frase(t):
+     r'\"[a-zA-Z_0-9 \\]+\"'
+     t.type = reserved.get(t.value,'frase')    # Check for reserved words
+     return t
+
 t_ignore = "\t\n"
 
 def t_error(t):

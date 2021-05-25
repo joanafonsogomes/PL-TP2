@@ -1,0 +1,7 @@
+dummy [3]
+lista [10]
+mat[4][4]
+start
+lista[1]=2
+mat[1][1] =5
+end

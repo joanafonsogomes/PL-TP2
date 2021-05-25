@@ -1,0 +1,4 @@
+start
+for(x=1; x< 5; x=x+1) print "PL IS GREAT\n" rof
+v[5]
+end

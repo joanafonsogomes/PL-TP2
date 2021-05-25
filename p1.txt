@@ -1,0 +1,9 @@
+read x
+read y
+read z
+read w
+k=0
+start
+if (x==y) then if (y==z) then if (z==w) then k=1 else 0 fi else 0 fi else 0 fi
+if(k==1) then print "Os numeros lidos podem ser os lados de um quadrado" else print "Os numeros lidos NAO sao lados de um quadrado" fi
+end

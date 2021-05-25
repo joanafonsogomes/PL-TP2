@@ -1,0 +1,3 @@
+start
+for(x=1; x< 5; x=x+1) print "PL IS GREAT\n" for( y=3; y!=0; y=y-1) print "Hello World\n" rof rof
+end
