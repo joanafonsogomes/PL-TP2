@@ -119,7 +119,7 @@ def p_Reading(p):
 def p_Writing(p):
     "Writing : WRITE id"
     indice= p.parser.registers.get(p[2])
-    p[0]= 'PUSHI ' + str(indice) +'\n'+ 'WRITEI\n'
+    p[0]= 'PUSHG ' + str(indice) +'\n'+ 'WRITEI\n'
 
 def p_Writing_Array(p):
     "Writing : WRITE id '[' num ']'"
