@@ -1,0 +1,7 @@
+read n
+a=0
+c=0
+start
+for(x=1; x<n; x=x+1) read a if (a>c) then c=a else 0 fi rof
+write c
+end

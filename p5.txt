@@ -1,6 +1,0 @@
-read n
-c = 0
-start
-for(x=1; x<n+1; x=x+1) if (x>c) then c=x else 0 fi rof
-print c
-end
