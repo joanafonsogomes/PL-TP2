@@ -96,8 +96,9 @@ def p_Termo_div(p):
         
 def p_Termo_mod(p):
     "Termo : Termo '%' Factor"
-    if(p[3] != 0):
-        p[0] = p[1]+ p[3]+ 'MOD\n'
+    p[0] = p[1]+ p[3] + 'MOD\n'
+    # file_vm.write(p[0])
+
 
 def p_Termo_factor(p):
     "Termo : Factor"
@@ -244,7 +245,7 @@ def p_Array(p):
         i= i+ int(p[3])
 
 def p_Atrib_Array(p):
-    "Atrib : id '[' Termo ']' '=' num"
+    "Atrib : id '[' num ']' '=' num"
     indicee = p.parser.registers.get(p[3])
     if(str(indicee)=='None'):
         indice = p.parser.registers.get(p[1])
