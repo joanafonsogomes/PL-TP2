@@ -31,6 +31,40 @@ def p_Printing(p):
     "Printing : PRINT frase"
     p[0] = 'PUSHS ' +p[2] +'\n' + 'WRITES\n' 
 
+def p_Reading(p):
+    "Reading : READ id"
+    global i
+    flag=1
+    for key in p.parser.registers.keys():
+        if key == p[2]:
+            p[0] = 'READ\nATOI\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
+            flag=0
+           # file_vm.write(p[0])
+    if(flag==1):
+        if(f==1):
+            sys.exit("Erro: Impossivel declarar variavel")
+        else:
+            p.parser.registers.update({p[2]: i})
+            p[0] = 'PUSHI 0\nREAD\nATOI\n'+ 'STOREG '+ str(i) +'\n'
+            i= i+1
+
+def p_Writing(p):
+    "Writing : WRITE id"
+    indice= p.parser.registers.get(p[2])
+    p[0]= 'PUSHG ' + str(indice) +'\n'+ 'WRITEI\n'
+
+def p_Writing_Array(p):
+    "Writing : WRITE id '[' num ']'"
+    indice = p.parser.registers.get(p[2])
+    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' + 'PUSHI ' + p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
+
+
+def p_Start(p):
+    "Start : START"
+    global f
+    p[0]='START\n'
+    f=1
+
 def p_Exp_add(p):
     "Exp : Exp '+' Termo" 
     p[0] = p[1]+ p[3]+ 'ADD\n'
@@ -98,40 +132,6 @@ def p_Factor_Array(p):
 def p_Factor_Matriz(p):
     "Factor : Matriz"
     p[0] = p[1]
-
-def p_Reading(p):
-    "Reading : READ id"
-    global i
-    flag=1
-    for key in p.parser.registers.keys():
-        if key == p[2]:
-            p[0] = 'READ\nATOI\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
-            flag=0
-            file_vm.write(p[0])
-    if(flag==1):
-        if(f==1):
-            sys.exit("Erro: Impossivel declarar variavel")
-        else:
-            p.parser.registers.update({p[2]: i})
-            p[0] = 'PUSHI 0\nREAD\nATOI\n'+ 'STOREG '+ str(i) +'\n'
-            i= i+1
-
-def p_Writing(p):
-    "Writing : WRITE id"
-    indice= p.parser.registers.get(p[2])
-    p[0]= 'PUSHG ' + str(indice) +'\n'+ 'WRITEI\n'
-
-def p_Writing_Array(p):
-    "Writing : WRITE id '[' num ']'"
-    indice = p.parser.registers.get(p[2])
-    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' + 'PUSHI ' + p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
-
-
-def p_Start(p):
-    "Start : START"
-    global f
-    p[0]='START\n'
-    f=1
 
 def p_End(p):
     "End : END"

@@ -15,21 +15,21 @@ Rule 9     Comando -> Condition
 Rule 10    Comando -> Cicle
 Rule 11    Comando -> End
 Rule 12    Printing -> PRINT frase
-Rule 13    Exp -> Exp + Termo
-Rule 14    Exp -> Exp - Termo
-Rule 15    Exp -> Termo
-Rule 16    Termo -> Termo * Factor
-Rule 17    Termo -> Termo / Factor
-Rule 18    Termo -> Factor
-Rule 19    Factor -> id
-Rule 20    Factor -> num
-Rule 21    Factor -> ( Exp )
-Rule 22    Factor -> Array
-Rule 23    Factor -> Matriz
-Rule 24    Reading -> READ id
-Rule 25    Writing -> WRITE id
-Rule 26    Writing -> WRITE id [ num ]
-Rule 27    Start -> START
+Rule 13    Reading -> READ id
+Rule 14    Writing -> WRITE id
+Rule 15    Writing -> WRITE id [ num ]
+Rule 16    Start -> START
+Rule 17    Exp -> Exp + Termo
+Rule 18    Exp -> Exp - Termo
+Rule 19    Exp -> Termo
+Rule 20    Termo -> Termo * Factor
+Rule 21    Termo -> Termo / Factor
+Rule 22    Termo -> Factor
+Rule 23    Factor -> id
+Rule 24    Factor -> num
+Rule 25    Factor -> ( Exp )
+Rule 26    Factor -> Array
+Rule 27    Factor -> Matriz
 Rule 28    End -> END
 Rule 29    Atrib -> id = Exp
 Rule 30    Condition -> IF ( Exp > Termo ) THEN Comandos ELSE Comandos FI
@@ -52,12 +52,12 @@ Rule 45    Atrib -> id [ num ] [ num ] = num
 Terminals, with rules where they appear
 
 !                    : 35 41
-(                    : 21 30 31 32 33 34 35 36 37 38 39 40 41
-)                    : 21 30 31 32 33 34 35 36 37 38 39 40 41
-*                    : 16
-+                    : 13
--                    : 14
-/                    : 17
+(                    : 25 30 31 32 33 34 35 36 37 38 39 40 41
+)                    : 25 30 31 32 33 34 35 36 37 38 39 40 41
+*                    : 20
++                    : 17
+-                    : 18
+/                    : 21
 ;                    : 36 36 37 37 38 38 39 39 40 40 41 41
 <                    : 31 33 36 38
 =                    : 29 32 33 34 34 35 38 39 40 40 41 43 45
@@ -68,34 +68,34 @@ FI                   : 30 31 32 33 34 35
 FOR                  : 36 37 38 39 40 41
 IF                   : 30 31 32 33 34 35
 PRINT                : 12
-READ                 : 24
+READ                 : 13
 ROF                  : 36 37 38 39 40 41
-START                : 27
+START                : 16
 THEN                 : 30 31 32 33 34 35
-WRITE                : 25 26
-[                    : 26 42 43 44 44 45 45
-]                    : 26 42 43 44 44 45 45
+WRITE                : 14 15
+[                    : 15 42 43 44 44 45 45
+]                    : 15 42 43 44 44 45 45
 error                : 
 frase                : 12
-id                   : 19 24 25 26 29 42 43 44 45
-num                  : 20 26 42 43 43 44 44 45 45 45
+id                   : 13 14 15 23 29 42 43 44 45
+num                  : 15 24 42 43 43 44 44 45 45 45
 
 Nonterminals, with rules where they appear
 
-Array                : 22
+Array                : 26
 Atrib                : 8 36 36 37 37 38 38 39 39 40 40 41 41
 Cicle                : 10
 Comando              : 1 2
 Comandos             : 1 30 30 31 31 32 32 33 33 34 34 35 35 36 37 38 39 40 41 0
 Condition            : 9
 End                  : 11
-Exp                  : 7 13 14 21 29 30 31 32 33 34 35
-Factor               : 16 17 18 36 36 37 37 38 38 39 39 40 40 41 41
-Matriz               : 23
+Exp                  : 7 17 18 25 29 30 31 32 33 34 35
+Factor               : 20 21 22 36 36 37 37 38 38 39 39 40 40 41 41
+Matriz               : 27
 Printing             : 3
 Reading              : 4
 Start                : 6
-Termo                : 13 14 15 16 17 30 31 32 33 34 35
+Termo                : 17 18 19 20 21 30 31 32 33 34 35
 Writing              : 5
 
 Parsing method: LALR
@@ -115,13 +115,13 @@ state 0
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -138,14 +138,14 @@ state 0
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -190,13 +190,13 @@ state 1
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -213,14 +213,14 @@ state 1
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -353,8 +353,8 @@ state 6
 state 7
 
     (7) Comando -> Exp .
-    (13) Exp -> Exp . + Termo
-    (14) Exp -> Exp . - Termo
+    (17) Exp -> Exp . + Termo
+    (18) Exp -> Exp . - Termo
 
     PRINT           reduce using rule 7 (Comando -> Exp .)
     READ            reduce using rule 7 (Comando -> Exp .)
@@ -463,7 +463,7 @@ state 12
 
 state 13
 
-    (24) Reading -> READ . id
+    (13) Reading -> READ . id
 
     id              shift and go to state 30
 
@@ -473,118 +473,118 @@ state 14
     (29) Atrib -> id . = Exp
     (43) Atrib -> id . [ num ] = num
     (45) Atrib -> id . [ num ] [ num ] = num
-    (19) Factor -> id .
+    (23) Factor -> id .
     (42) Array -> id . [ num ]
     (44) Matriz -> id . [ num ] [ num ]
 
     =               shift and go to state 31
     [               shift and go to state 32
-    *               reduce using rule 19 (Factor -> id .)
-    /               reduce using rule 19 (Factor -> id .)
-    +               reduce using rule 19 (Factor -> id .)
-    -               reduce using rule 19 (Factor -> id .)
-    PRINT           reduce using rule 19 (Factor -> id .)
-    READ            reduce using rule 19 (Factor -> id .)
-    WRITE           reduce using rule 19 (Factor -> id .)
-    START           reduce using rule 19 (Factor -> id .)
-    id              reduce using rule 19 (Factor -> id .)
-    IF              reduce using rule 19 (Factor -> id .)
-    FOR             reduce using rule 19 (Factor -> id .)
-    END             reduce using rule 19 (Factor -> id .)
-    num             reduce using rule 19 (Factor -> id .)
-    (               reduce using rule 19 (Factor -> id .)
-    $end            reduce using rule 19 (Factor -> id .)
-    ELSE            reduce using rule 19 (Factor -> id .)
-    FI              reduce using rule 19 (Factor -> id .)
-    ROF             reduce using rule 19 (Factor -> id .)
+    *               reduce using rule 23 (Factor -> id .)
+    /               reduce using rule 23 (Factor -> id .)
+    +               reduce using rule 23 (Factor -> id .)
+    -               reduce using rule 23 (Factor -> id .)
+    PRINT           reduce using rule 23 (Factor -> id .)
+    READ            reduce using rule 23 (Factor -> id .)
+    WRITE           reduce using rule 23 (Factor -> id .)
+    START           reduce using rule 23 (Factor -> id .)
+    id              reduce using rule 23 (Factor -> id .)
+    IF              reduce using rule 23 (Factor -> id .)
+    FOR             reduce using rule 23 (Factor -> id .)
+    END             reduce using rule 23 (Factor -> id .)
+    num             reduce using rule 23 (Factor -> id .)
+    (               reduce using rule 23 (Factor -> id .)
+    $end            reduce using rule 23 (Factor -> id .)
+    ELSE            reduce using rule 23 (Factor -> id .)
+    FI              reduce using rule 23 (Factor -> id .)
+    ROF             reduce using rule 23 (Factor -> id .)
 
 
 state 15
 
-    (25) Writing -> WRITE . id
-    (26) Writing -> WRITE . id [ num ]
+    (14) Writing -> WRITE . id
+    (15) Writing -> WRITE . id [ num ]
 
     id              shift and go to state 33
 
 
 state 16
 
-    (20) Factor -> num .
+    (24) Factor -> num .
 
-    *               reduce using rule 20 (Factor -> num .)
-    /               reduce using rule 20 (Factor -> num .)
-    +               reduce using rule 20 (Factor -> num .)
-    -               reduce using rule 20 (Factor -> num .)
-    PRINT           reduce using rule 20 (Factor -> num .)
-    READ            reduce using rule 20 (Factor -> num .)
-    WRITE           reduce using rule 20 (Factor -> num .)
-    START           reduce using rule 20 (Factor -> num .)
-    id              reduce using rule 20 (Factor -> num .)
-    IF              reduce using rule 20 (Factor -> num .)
-    FOR             reduce using rule 20 (Factor -> num .)
-    END             reduce using rule 20 (Factor -> num .)
-    num             reduce using rule 20 (Factor -> num .)
-    (               reduce using rule 20 (Factor -> num .)
-    $end            reduce using rule 20 (Factor -> num .)
-    )               reduce using rule 20 (Factor -> num .)
-    ;               reduce using rule 20 (Factor -> num .)
-    ELSE            reduce using rule 20 (Factor -> num .)
-    FI              reduce using rule 20 (Factor -> num .)
-    ROF             reduce using rule 20 (Factor -> num .)
-    >               reduce using rule 20 (Factor -> num .)
-    <               reduce using rule 20 (Factor -> num .)
-    =               reduce using rule 20 (Factor -> num .)
-    !               reduce using rule 20 (Factor -> num .)
+    *               reduce using rule 24 (Factor -> num .)
+    /               reduce using rule 24 (Factor -> num .)
+    +               reduce using rule 24 (Factor -> num .)
+    -               reduce using rule 24 (Factor -> num .)
+    PRINT           reduce using rule 24 (Factor -> num .)
+    READ            reduce using rule 24 (Factor -> num .)
+    WRITE           reduce using rule 24 (Factor -> num .)
+    START           reduce using rule 24 (Factor -> num .)
+    id              reduce using rule 24 (Factor -> num .)
+    IF              reduce using rule 24 (Factor -> num .)
+    FOR             reduce using rule 24 (Factor -> num .)
+    END             reduce using rule 24 (Factor -> num .)
+    num             reduce using rule 24 (Factor -> num .)
+    (               reduce using rule 24 (Factor -> num .)
+    $end            reduce using rule 24 (Factor -> num .)
+    )               reduce using rule 24 (Factor -> num .)
+    ;               reduce using rule 24 (Factor -> num .)
+    ELSE            reduce using rule 24 (Factor -> num .)
+    FI              reduce using rule 24 (Factor -> num .)
+    ROF             reduce using rule 24 (Factor -> num .)
+    >               reduce using rule 24 (Factor -> num .)
+    <               reduce using rule 24 (Factor -> num .)
+    =               reduce using rule 24 (Factor -> num .)
+    !               reduce using rule 24 (Factor -> num .)
 
 
 state 17
 
-    (27) Start -> START .
+    (16) Start -> START .
 
-    PRINT           reduce using rule 27 (Start -> START .)
-    READ            reduce using rule 27 (Start -> START .)
-    WRITE           reduce using rule 27 (Start -> START .)
-    START           reduce using rule 27 (Start -> START .)
-    id              reduce using rule 27 (Start -> START .)
-    IF              reduce using rule 27 (Start -> START .)
-    FOR             reduce using rule 27 (Start -> START .)
-    END             reduce using rule 27 (Start -> START .)
-    num             reduce using rule 27 (Start -> START .)
-    (               reduce using rule 27 (Start -> START .)
-    $end            reduce using rule 27 (Start -> START .)
-    ELSE            reduce using rule 27 (Start -> START .)
-    FI              reduce using rule 27 (Start -> START .)
-    ROF             reduce using rule 27 (Start -> START .)
+    PRINT           reduce using rule 16 (Start -> START .)
+    READ            reduce using rule 16 (Start -> START .)
+    WRITE           reduce using rule 16 (Start -> START .)
+    START           reduce using rule 16 (Start -> START .)
+    id              reduce using rule 16 (Start -> START .)
+    IF              reduce using rule 16 (Start -> START .)
+    FOR             reduce using rule 16 (Start -> START .)
+    END             reduce using rule 16 (Start -> START .)
+    num             reduce using rule 16 (Start -> START .)
+    (               reduce using rule 16 (Start -> START .)
+    $end            reduce using rule 16 (Start -> START .)
+    ELSE            reduce using rule 16 (Start -> START .)
+    FI              reduce using rule 16 (Start -> START .)
+    ROF             reduce using rule 16 (Start -> START .)
 
 
 state 18
 
-    (15) Exp -> Termo .
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (19) Exp -> Termo .
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
-    +               reduce using rule 15 (Exp -> Termo .)
-    -               reduce using rule 15 (Exp -> Termo .)
-    PRINT           reduce using rule 15 (Exp -> Termo .)
-    READ            reduce using rule 15 (Exp -> Termo .)
-    WRITE           reduce using rule 15 (Exp -> Termo .)
-    START           reduce using rule 15 (Exp -> Termo .)
-    id              reduce using rule 15 (Exp -> Termo .)
-    IF              reduce using rule 15 (Exp -> Termo .)
-    FOR             reduce using rule 15 (Exp -> Termo .)
-    END             reduce using rule 15 (Exp -> Termo .)
-    num             reduce using rule 15 (Exp -> Termo .)
-    (               reduce using rule 15 (Exp -> Termo .)
-    $end            reduce using rule 15 (Exp -> Termo .)
-    )               reduce using rule 15 (Exp -> Termo .)
-    ;               reduce using rule 15 (Exp -> Termo .)
-    ELSE            reduce using rule 15 (Exp -> Termo .)
-    FI              reduce using rule 15 (Exp -> Termo .)
-    ROF             reduce using rule 15 (Exp -> Termo .)
-    >               reduce using rule 15 (Exp -> Termo .)
-    <               reduce using rule 15 (Exp -> Termo .)
-    =               reduce using rule 15 (Exp -> Termo .)
-    !               reduce using rule 15 (Exp -> Termo .)
+    +               reduce using rule 19 (Exp -> Termo .)
+    -               reduce using rule 19 (Exp -> Termo .)
+    PRINT           reduce using rule 19 (Exp -> Termo .)
+    READ            reduce using rule 19 (Exp -> Termo .)
+    WRITE           reduce using rule 19 (Exp -> Termo .)
+    START           reduce using rule 19 (Exp -> Termo .)
+    id              reduce using rule 19 (Exp -> Termo .)
+    IF              reduce using rule 19 (Exp -> Termo .)
+    FOR             reduce using rule 19 (Exp -> Termo .)
+    END             reduce using rule 19 (Exp -> Termo .)
+    num             reduce using rule 19 (Exp -> Termo .)
+    (               reduce using rule 19 (Exp -> Termo .)
+    $end            reduce using rule 19 (Exp -> Termo .)
+    )               reduce using rule 19 (Exp -> Termo .)
+    ;               reduce using rule 19 (Exp -> Termo .)
+    ELSE            reduce using rule 19 (Exp -> Termo .)
+    FI              reduce using rule 19 (Exp -> Termo .)
+    ROF             reduce using rule 19 (Exp -> Termo .)
+    >               reduce using rule 19 (Exp -> Termo .)
+    <               reduce using rule 19 (Exp -> Termo .)
+    =               reduce using rule 19 (Exp -> Termo .)
+    !               reduce using rule 19 (Exp -> Termo .)
     *               shift and go to state 34
     /               shift and go to state 35
 
@@ -603,18 +603,18 @@ state 19
 
 state 20
 
-    (21) Factor -> ( . Exp )
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (25) Factor -> ( . Exp )
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -642,32 +642,32 @@ state 21
 
 state 22
 
-    (18) Termo -> Factor .
+    (22) Termo -> Factor .
 
-    *               reduce using rule 18 (Termo -> Factor .)
-    /               reduce using rule 18 (Termo -> Factor .)
-    +               reduce using rule 18 (Termo -> Factor .)
-    -               reduce using rule 18 (Termo -> Factor .)
-    PRINT           reduce using rule 18 (Termo -> Factor .)
-    READ            reduce using rule 18 (Termo -> Factor .)
-    WRITE           reduce using rule 18 (Termo -> Factor .)
-    START           reduce using rule 18 (Termo -> Factor .)
-    id              reduce using rule 18 (Termo -> Factor .)
-    IF              reduce using rule 18 (Termo -> Factor .)
-    FOR             reduce using rule 18 (Termo -> Factor .)
-    END             reduce using rule 18 (Termo -> Factor .)
-    num             reduce using rule 18 (Termo -> Factor .)
-    (               reduce using rule 18 (Termo -> Factor .)
-    $end            reduce using rule 18 (Termo -> Factor .)
-    )               reduce using rule 18 (Termo -> Factor .)
-    ;               reduce using rule 18 (Termo -> Factor .)
-    ELSE            reduce using rule 18 (Termo -> Factor .)
-    FI              reduce using rule 18 (Termo -> Factor .)
-    ROF             reduce using rule 18 (Termo -> Factor .)
-    >               reduce using rule 18 (Termo -> Factor .)
-    <               reduce using rule 18 (Termo -> Factor .)
-    =               reduce using rule 18 (Termo -> Factor .)
-    !               reduce using rule 18 (Termo -> Factor .)
+    *               reduce using rule 22 (Termo -> Factor .)
+    /               reduce using rule 22 (Termo -> Factor .)
+    +               reduce using rule 22 (Termo -> Factor .)
+    -               reduce using rule 22 (Termo -> Factor .)
+    PRINT           reduce using rule 22 (Termo -> Factor .)
+    READ            reduce using rule 22 (Termo -> Factor .)
+    WRITE           reduce using rule 22 (Termo -> Factor .)
+    START           reduce using rule 22 (Termo -> Factor .)
+    id              reduce using rule 22 (Termo -> Factor .)
+    IF              reduce using rule 22 (Termo -> Factor .)
+    FOR             reduce using rule 22 (Termo -> Factor .)
+    END             reduce using rule 22 (Termo -> Factor .)
+    num             reduce using rule 22 (Termo -> Factor .)
+    (               reduce using rule 22 (Termo -> Factor .)
+    $end            reduce using rule 22 (Termo -> Factor .)
+    )               reduce using rule 22 (Termo -> Factor .)
+    ;               reduce using rule 22 (Termo -> Factor .)
+    ELSE            reduce using rule 22 (Termo -> Factor .)
+    FI              reduce using rule 22 (Termo -> Factor .)
+    ROF             reduce using rule 22 (Termo -> Factor .)
+    >               reduce using rule 22 (Termo -> Factor .)
+    <               reduce using rule 22 (Termo -> Factor .)
+    =               reduce using rule 22 (Termo -> Factor .)
+    !               reduce using rule 22 (Termo -> Factor .)
 
 
 state 23
@@ -692,62 +692,62 @@ state 23
 
 state 24
 
-    (22) Factor -> Array .
+    (26) Factor -> Array .
 
-    *               reduce using rule 22 (Factor -> Array .)
-    /               reduce using rule 22 (Factor -> Array .)
-    +               reduce using rule 22 (Factor -> Array .)
-    -               reduce using rule 22 (Factor -> Array .)
-    PRINT           reduce using rule 22 (Factor -> Array .)
-    READ            reduce using rule 22 (Factor -> Array .)
-    WRITE           reduce using rule 22 (Factor -> Array .)
-    START           reduce using rule 22 (Factor -> Array .)
-    id              reduce using rule 22 (Factor -> Array .)
-    IF              reduce using rule 22 (Factor -> Array .)
-    FOR             reduce using rule 22 (Factor -> Array .)
-    END             reduce using rule 22 (Factor -> Array .)
-    num             reduce using rule 22 (Factor -> Array .)
-    (               reduce using rule 22 (Factor -> Array .)
-    $end            reduce using rule 22 (Factor -> Array .)
-    )               reduce using rule 22 (Factor -> Array .)
-    ;               reduce using rule 22 (Factor -> Array .)
-    ELSE            reduce using rule 22 (Factor -> Array .)
-    FI              reduce using rule 22 (Factor -> Array .)
-    ROF             reduce using rule 22 (Factor -> Array .)
-    >               reduce using rule 22 (Factor -> Array .)
-    <               reduce using rule 22 (Factor -> Array .)
-    =               reduce using rule 22 (Factor -> Array .)
-    !               reduce using rule 22 (Factor -> Array .)
+    *               reduce using rule 26 (Factor -> Array .)
+    /               reduce using rule 26 (Factor -> Array .)
+    +               reduce using rule 26 (Factor -> Array .)
+    -               reduce using rule 26 (Factor -> Array .)
+    PRINT           reduce using rule 26 (Factor -> Array .)
+    READ            reduce using rule 26 (Factor -> Array .)
+    WRITE           reduce using rule 26 (Factor -> Array .)
+    START           reduce using rule 26 (Factor -> Array .)
+    id              reduce using rule 26 (Factor -> Array .)
+    IF              reduce using rule 26 (Factor -> Array .)
+    FOR             reduce using rule 26 (Factor -> Array .)
+    END             reduce using rule 26 (Factor -> Array .)
+    num             reduce using rule 26 (Factor -> Array .)
+    (               reduce using rule 26 (Factor -> Array .)
+    $end            reduce using rule 26 (Factor -> Array .)
+    )               reduce using rule 26 (Factor -> Array .)
+    ;               reduce using rule 26 (Factor -> Array .)
+    ELSE            reduce using rule 26 (Factor -> Array .)
+    FI              reduce using rule 26 (Factor -> Array .)
+    ROF             reduce using rule 26 (Factor -> Array .)
+    >               reduce using rule 26 (Factor -> Array .)
+    <               reduce using rule 26 (Factor -> Array .)
+    =               reduce using rule 26 (Factor -> Array .)
+    !               reduce using rule 26 (Factor -> Array .)
 
 
 state 25
 
-    (23) Factor -> Matriz .
+    (27) Factor -> Matriz .
 
-    *               reduce using rule 23 (Factor -> Matriz .)
-    /               reduce using rule 23 (Factor -> Matriz .)
-    +               reduce using rule 23 (Factor -> Matriz .)
-    -               reduce using rule 23 (Factor -> Matriz .)
-    PRINT           reduce using rule 23 (Factor -> Matriz .)
-    READ            reduce using rule 23 (Factor -> Matriz .)
-    WRITE           reduce using rule 23 (Factor -> Matriz .)
-    START           reduce using rule 23 (Factor -> Matriz .)
-    id              reduce using rule 23 (Factor -> Matriz .)
-    IF              reduce using rule 23 (Factor -> Matriz .)
-    FOR             reduce using rule 23 (Factor -> Matriz .)
-    END             reduce using rule 23 (Factor -> Matriz .)
-    num             reduce using rule 23 (Factor -> Matriz .)
-    (               reduce using rule 23 (Factor -> Matriz .)
-    $end            reduce using rule 23 (Factor -> Matriz .)
-    )               reduce using rule 23 (Factor -> Matriz .)
-    ;               reduce using rule 23 (Factor -> Matriz .)
-    ELSE            reduce using rule 23 (Factor -> Matriz .)
-    FI              reduce using rule 23 (Factor -> Matriz .)
-    ROF             reduce using rule 23 (Factor -> Matriz .)
-    >               reduce using rule 23 (Factor -> Matriz .)
-    <               reduce using rule 23 (Factor -> Matriz .)
-    =               reduce using rule 23 (Factor -> Matriz .)
-    !               reduce using rule 23 (Factor -> Matriz .)
+    *               reduce using rule 27 (Factor -> Matriz .)
+    /               reduce using rule 27 (Factor -> Matriz .)
+    +               reduce using rule 27 (Factor -> Matriz .)
+    -               reduce using rule 27 (Factor -> Matriz .)
+    PRINT           reduce using rule 27 (Factor -> Matriz .)
+    READ            reduce using rule 27 (Factor -> Matriz .)
+    WRITE           reduce using rule 27 (Factor -> Matriz .)
+    START           reduce using rule 27 (Factor -> Matriz .)
+    id              reduce using rule 27 (Factor -> Matriz .)
+    IF              reduce using rule 27 (Factor -> Matriz .)
+    FOR             reduce using rule 27 (Factor -> Matriz .)
+    END             reduce using rule 27 (Factor -> Matriz .)
+    num             reduce using rule 27 (Factor -> Matriz .)
+    (               reduce using rule 27 (Factor -> Matriz .)
+    $end            reduce using rule 27 (Factor -> Matriz .)
+    )               reduce using rule 27 (Factor -> Matriz .)
+    ;               reduce using rule 27 (Factor -> Matriz .)
+    ELSE            reduce using rule 27 (Factor -> Matriz .)
+    FI              reduce using rule 27 (Factor -> Matriz .)
+    ROF             reduce using rule 27 (Factor -> Matriz .)
+    >               reduce using rule 27 (Factor -> Matriz .)
+    <               reduce using rule 27 (Factor -> Matriz .)
+    =               reduce using rule 27 (Factor -> Matriz .)
+    !               reduce using rule 27 (Factor -> Matriz .)
 
 
 state 26
@@ -772,15 +772,15 @@ state 26
 
 state 27
 
-    (13) Exp -> Exp + . Termo
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (17) Exp -> Exp + . Termo
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -795,15 +795,15 @@ state 27
 
 state 28
 
-    (14) Exp -> Exp - . Termo
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (18) Exp -> Exp - . Termo
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -838,38 +838,38 @@ state 29
 
 state 30
 
-    (24) Reading -> READ id .
+    (13) Reading -> READ id .
 
-    PRINT           reduce using rule 24 (Reading -> READ id .)
-    READ            reduce using rule 24 (Reading -> READ id .)
-    WRITE           reduce using rule 24 (Reading -> READ id .)
-    START           reduce using rule 24 (Reading -> READ id .)
-    id              reduce using rule 24 (Reading -> READ id .)
-    IF              reduce using rule 24 (Reading -> READ id .)
-    FOR             reduce using rule 24 (Reading -> READ id .)
-    END             reduce using rule 24 (Reading -> READ id .)
-    num             reduce using rule 24 (Reading -> READ id .)
-    (               reduce using rule 24 (Reading -> READ id .)
-    $end            reduce using rule 24 (Reading -> READ id .)
-    ELSE            reduce using rule 24 (Reading -> READ id .)
-    FI              reduce using rule 24 (Reading -> READ id .)
-    ROF             reduce using rule 24 (Reading -> READ id .)
+    PRINT           reduce using rule 13 (Reading -> READ id .)
+    READ            reduce using rule 13 (Reading -> READ id .)
+    WRITE           reduce using rule 13 (Reading -> READ id .)
+    START           reduce using rule 13 (Reading -> READ id .)
+    id              reduce using rule 13 (Reading -> READ id .)
+    IF              reduce using rule 13 (Reading -> READ id .)
+    FOR             reduce using rule 13 (Reading -> READ id .)
+    END             reduce using rule 13 (Reading -> READ id .)
+    num             reduce using rule 13 (Reading -> READ id .)
+    (               reduce using rule 13 (Reading -> READ id .)
+    $end            reduce using rule 13 (Reading -> READ id .)
+    ELSE            reduce using rule 13 (Reading -> READ id .)
+    FI              reduce using rule 13 (Reading -> READ id .)
+    ROF             reduce using rule 13 (Reading -> READ id .)
 
 
 state 31
 
     (29) Atrib -> id = . Exp
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -895,34 +895,34 @@ state 32
 
 state 33
 
-    (25) Writing -> WRITE id .
-    (26) Writing -> WRITE id . [ num ]
+    (14) Writing -> WRITE id .
+    (15) Writing -> WRITE id . [ num ]
 
-    PRINT           reduce using rule 25 (Writing -> WRITE id .)
-    READ            reduce using rule 25 (Writing -> WRITE id .)
-    WRITE           reduce using rule 25 (Writing -> WRITE id .)
-    START           reduce using rule 25 (Writing -> WRITE id .)
-    id              reduce using rule 25 (Writing -> WRITE id .)
-    IF              reduce using rule 25 (Writing -> WRITE id .)
-    FOR             reduce using rule 25 (Writing -> WRITE id .)
-    END             reduce using rule 25 (Writing -> WRITE id .)
-    num             reduce using rule 25 (Writing -> WRITE id .)
-    (               reduce using rule 25 (Writing -> WRITE id .)
-    $end            reduce using rule 25 (Writing -> WRITE id .)
-    ELSE            reduce using rule 25 (Writing -> WRITE id .)
-    FI              reduce using rule 25 (Writing -> WRITE id .)
-    ROF             reduce using rule 25 (Writing -> WRITE id .)
+    PRINT           reduce using rule 14 (Writing -> WRITE id .)
+    READ            reduce using rule 14 (Writing -> WRITE id .)
+    WRITE           reduce using rule 14 (Writing -> WRITE id .)
+    START           reduce using rule 14 (Writing -> WRITE id .)
+    id              reduce using rule 14 (Writing -> WRITE id .)
+    IF              reduce using rule 14 (Writing -> WRITE id .)
+    FOR             reduce using rule 14 (Writing -> WRITE id .)
+    END             reduce using rule 14 (Writing -> WRITE id .)
+    num             reduce using rule 14 (Writing -> WRITE id .)
+    (               reduce using rule 14 (Writing -> WRITE id .)
+    $end            reduce using rule 14 (Writing -> WRITE id .)
+    ELSE            reduce using rule 14 (Writing -> WRITE id .)
+    FI              reduce using rule 14 (Writing -> WRITE id .)
+    ROF             reduce using rule 14 (Writing -> WRITE id .)
     [               shift and go to state 44
 
 
 state 34
 
-    (16) Termo -> Termo * . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> Termo * . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -936,12 +936,12 @@ state 34
 
 state 35
 
-    (17) Termo -> Termo / . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (21) Termo -> Termo / . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -961,17 +961,17 @@ state 36
     (33) Condition -> IF ( . Exp < = Termo ) THEN Comandos ELSE Comandos FI
     (34) Condition -> IF ( . Exp = = Termo ) THEN Comandos ELSE Comandos FI
     (35) Condition -> IF ( . Exp ! = Termo ) THEN Comandos ELSE Comandos FI
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -987,9 +987,9 @@ state 36
 
 state 37
 
-    (21) Factor -> ( Exp . )
-    (13) Exp -> Exp . + Termo
-    (14) Exp -> Exp . - Termo
+    (25) Factor -> ( Exp . )
+    (17) Exp -> Exp . + Termo
+    (18) Exp -> Exp . - Termo
 
     )               shift and go to state 48
     +               shift and go to state 27
@@ -998,34 +998,34 @@ state 37
 
 state 38
 
-    (19) Factor -> id .
+    (23) Factor -> id .
     (42) Array -> id . [ num ]
     (44) Matriz -> id . [ num ] [ num ]
 
-    *               reduce using rule 19 (Factor -> id .)
-    /               reduce using rule 19 (Factor -> id .)
-    )               reduce using rule 19 (Factor -> id .)
-    +               reduce using rule 19 (Factor -> id .)
-    -               reduce using rule 19 (Factor -> id .)
-    PRINT           reduce using rule 19 (Factor -> id .)
-    READ            reduce using rule 19 (Factor -> id .)
-    WRITE           reduce using rule 19 (Factor -> id .)
-    START           reduce using rule 19 (Factor -> id .)
-    id              reduce using rule 19 (Factor -> id .)
-    IF              reduce using rule 19 (Factor -> id .)
-    FOR             reduce using rule 19 (Factor -> id .)
-    END             reduce using rule 19 (Factor -> id .)
-    num             reduce using rule 19 (Factor -> id .)
-    (               reduce using rule 19 (Factor -> id .)
-    $end            reduce using rule 19 (Factor -> id .)
-    ;               reduce using rule 19 (Factor -> id .)
-    ELSE            reduce using rule 19 (Factor -> id .)
-    FI              reduce using rule 19 (Factor -> id .)
-    ROF             reduce using rule 19 (Factor -> id .)
-    >               reduce using rule 19 (Factor -> id .)
-    <               reduce using rule 19 (Factor -> id .)
-    =               reduce using rule 19 (Factor -> id .)
-    !               reduce using rule 19 (Factor -> id .)
+    *               reduce using rule 23 (Factor -> id .)
+    /               reduce using rule 23 (Factor -> id .)
+    )               reduce using rule 23 (Factor -> id .)
+    +               reduce using rule 23 (Factor -> id .)
+    -               reduce using rule 23 (Factor -> id .)
+    PRINT           reduce using rule 23 (Factor -> id .)
+    READ            reduce using rule 23 (Factor -> id .)
+    WRITE           reduce using rule 23 (Factor -> id .)
+    START           reduce using rule 23 (Factor -> id .)
+    id              reduce using rule 23 (Factor -> id .)
+    IF              reduce using rule 23 (Factor -> id .)
+    FOR             reduce using rule 23 (Factor -> id .)
+    END             reduce using rule 23 (Factor -> id .)
+    num             reduce using rule 23 (Factor -> id .)
+    (               reduce using rule 23 (Factor -> id .)
+    $end            reduce using rule 23 (Factor -> id .)
+    ;               reduce using rule 23 (Factor -> id .)
+    ELSE            reduce using rule 23 (Factor -> id .)
+    FI              reduce using rule 23 (Factor -> id .)
+    ROF             reduce using rule 23 (Factor -> id .)
+    >               reduce using rule 23 (Factor -> id .)
+    <               reduce using rule 23 (Factor -> id .)
+    =               reduce using rule 23 (Factor -> id .)
+    !               reduce using rule 23 (Factor -> id .)
     [               shift and go to state 49
 
 
@@ -1047,64 +1047,64 @@ state 39
 
 state 40
 
-    (13) Exp -> Exp + Termo .
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (17) Exp -> Exp + Termo .
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
-    +               reduce using rule 13 (Exp -> Exp + Termo .)
-    -               reduce using rule 13 (Exp -> Exp + Termo .)
-    PRINT           reduce using rule 13 (Exp -> Exp + Termo .)
-    READ            reduce using rule 13 (Exp -> Exp + Termo .)
-    WRITE           reduce using rule 13 (Exp -> Exp + Termo .)
-    START           reduce using rule 13 (Exp -> Exp + Termo .)
-    id              reduce using rule 13 (Exp -> Exp + Termo .)
-    IF              reduce using rule 13 (Exp -> Exp + Termo .)
-    FOR             reduce using rule 13 (Exp -> Exp + Termo .)
-    END             reduce using rule 13 (Exp -> Exp + Termo .)
-    num             reduce using rule 13 (Exp -> Exp + Termo .)
-    (               reduce using rule 13 (Exp -> Exp + Termo .)
-    $end            reduce using rule 13 (Exp -> Exp + Termo .)
-    )               reduce using rule 13 (Exp -> Exp + Termo .)
-    ;               reduce using rule 13 (Exp -> Exp + Termo .)
-    ELSE            reduce using rule 13 (Exp -> Exp + Termo .)
-    FI              reduce using rule 13 (Exp -> Exp + Termo .)
-    ROF             reduce using rule 13 (Exp -> Exp + Termo .)
-    >               reduce using rule 13 (Exp -> Exp + Termo .)
-    <               reduce using rule 13 (Exp -> Exp + Termo .)
-    =               reduce using rule 13 (Exp -> Exp + Termo .)
-    !               reduce using rule 13 (Exp -> Exp + Termo .)
+    +               reduce using rule 17 (Exp -> Exp + Termo .)
+    -               reduce using rule 17 (Exp -> Exp + Termo .)
+    PRINT           reduce using rule 17 (Exp -> Exp + Termo .)
+    READ            reduce using rule 17 (Exp -> Exp + Termo .)
+    WRITE           reduce using rule 17 (Exp -> Exp + Termo .)
+    START           reduce using rule 17 (Exp -> Exp + Termo .)
+    id              reduce using rule 17 (Exp -> Exp + Termo .)
+    IF              reduce using rule 17 (Exp -> Exp + Termo .)
+    FOR             reduce using rule 17 (Exp -> Exp + Termo .)
+    END             reduce using rule 17 (Exp -> Exp + Termo .)
+    num             reduce using rule 17 (Exp -> Exp + Termo .)
+    (               reduce using rule 17 (Exp -> Exp + Termo .)
+    $end            reduce using rule 17 (Exp -> Exp + Termo .)
+    )               reduce using rule 17 (Exp -> Exp + Termo .)
+    ;               reduce using rule 17 (Exp -> Exp + Termo .)
+    ELSE            reduce using rule 17 (Exp -> Exp + Termo .)
+    FI              reduce using rule 17 (Exp -> Exp + Termo .)
+    ROF             reduce using rule 17 (Exp -> Exp + Termo .)
+    >               reduce using rule 17 (Exp -> Exp + Termo .)
+    <               reduce using rule 17 (Exp -> Exp + Termo .)
+    =               reduce using rule 17 (Exp -> Exp + Termo .)
+    !               reduce using rule 17 (Exp -> Exp + Termo .)
     *               shift and go to state 34
     /               shift and go to state 35
 
 
 state 41
 
-    (14) Exp -> Exp - Termo .
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (18) Exp -> Exp - Termo .
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
-    +               reduce using rule 14 (Exp -> Exp - Termo .)
-    -               reduce using rule 14 (Exp -> Exp - Termo .)
-    PRINT           reduce using rule 14 (Exp -> Exp - Termo .)
-    READ            reduce using rule 14 (Exp -> Exp - Termo .)
-    WRITE           reduce using rule 14 (Exp -> Exp - Termo .)
-    START           reduce using rule 14 (Exp -> Exp - Termo .)
-    id              reduce using rule 14 (Exp -> Exp - Termo .)
-    IF              reduce using rule 14 (Exp -> Exp - Termo .)
-    FOR             reduce using rule 14 (Exp -> Exp - Termo .)
-    END             reduce using rule 14 (Exp -> Exp - Termo .)
-    num             reduce using rule 14 (Exp -> Exp - Termo .)
-    (               reduce using rule 14 (Exp -> Exp - Termo .)
-    $end            reduce using rule 14 (Exp -> Exp - Termo .)
-    )               reduce using rule 14 (Exp -> Exp - Termo .)
-    ;               reduce using rule 14 (Exp -> Exp - Termo .)
-    ELSE            reduce using rule 14 (Exp -> Exp - Termo .)
-    FI              reduce using rule 14 (Exp -> Exp - Termo .)
-    ROF             reduce using rule 14 (Exp -> Exp - Termo .)
-    >               reduce using rule 14 (Exp -> Exp - Termo .)
-    <               reduce using rule 14 (Exp -> Exp - Termo .)
-    =               reduce using rule 14 (Exp -> Exp - Termo .)
-    !               reduce using rule 14 (Exp -> Exp - Termo .)
+    +               reduce using rule 18 (Exp -> Exp - Termo .)
+    -               reduce using rule 18 (Exp -> Exp - Termo .)
+    PRINT           reduce using rule 18 (Exp -> Exp - Termo .)
+    READ            reduce using rule 18 (Exp -> Exp - Termo .)
+    WRITE           reduce using rule 18 (Exp -> Exp - Termo .)
+    START           reduce using rule 18 (Exp -> Exp - Termo .)
+    id              reduce using rule 18 (Exp -> Exp - Termo .)
+    IF              reduce using rule 18 (Exp -> Exp - Termo .)
+    FOR             reduce using rule 18 (Exp -> Exp - Termo .)
+    END             reduce using rule 18 (Exp -> Exp - Termo .)
+    num             reduce using rule 18 (Exp -> Exp - Termo .)
+    (               reduce using rule 18 (Exp -> Exp - Termo .)
+    $end            reduce using rule 18 (Exp -> Exp - Termo .)
+    )               reduce using rule 18 (Exp -> Exp - Termo .)
+    ;               reduce using rule 18 (Exp -> Exp - Termo .)
+    ELSE            reduce using rule 18 (Exp -> Exp - Termo .)
+    FI              reduce using rule 18 (Exp -> Exp - Termo .)
+    ROF             reduce using rule 18 (Exp -> Exp - Termo .)
+    >               reduce using rule 18 (Exp -> Exp - Termo .)
+    <               reduce using rule 18 (Exp -> Exp - Termo .)
+    =               reduce using rule 18 (Exp -> Exp - Termo .)
+    !               reduce using rule 18 (Exp -> Exp - Termo .)
     *               shift and go to state 34
     /               shift and go to state 35
 
@@ -1112,8 +1112,8 @@ state 41
 state 42
 
     (29) Atrib -> id = Exp .
-    (13) Exp -> Exp . + Termo
-    (14) Exp -> Exp . - Termo
+    (17) Exp -> Exp . + Termo
+    (18) Exp -> Exp . - Termo
 
     PRINT           reduce using rule 29 (Atrib -> id = Exp .)
     READ            reduce using rule 29 (Atrib -> id = Exp .)
@@ -1147,69 +1147,69 @@ state 43
 
 state 44
 
-    (26) Writing -> WRITE id [ . num ]
+    (15) Writing -> WRITE id [ . num ]
 
     num             shift and go to state 53
 
 
 state 45
 
-    (16) Termo -> Termo * Factor .
+    (20) Termo -> Termo * Factor .
 
-    *               reduce using rule 16 (Termo -> Termo * Factor .)
-    /               reduce using rule 16 (Termo -> Termo * Factor .)
-    +               reduce using rule 16 (Termo -> Termo * Factor .)
-    -               reduce using rule 16 (Termo -> Termo * Factor .)
-    PRINT           reduce using rule 16 (Termo -> Termo * Factor .)
-    READ            reduce using rule 16 (Termo -> Termo * Factor .)
-    WRITE           reduce using rule 16 (Termo -> Termo * Factor .)
-    START           reduce using rule 16 (Termo -> Termo * Factor .)
-    id              reduce using rule 16 (Termo -> Termo * Factor .)
-    IF              reduce using rule 16 (Termo -> Termo * Factor .)
-    FOR             reduce using rule 16 (Termo -> Termo * Factor .)
-    END             reduce using rule 16 (Termo -> Termo * Factor .)
-    num             reduce using rule 16 (Termo -> Termo * Factor .)
-    (               reduce using rule 16 (Termo -> Termo * Factor .)
-    $end            reduce using rule 16 (Termo -> Termo * Factor .)
-    )               reduce using rule 16 (Termo -> Termo * Factor .)
-    ;               reduce using rule 16 (Termo -> Termo * Factor .)
-    ELSE            reduce using rule 16 (Termo -> Termo * Factor .)
-    FI              reduce using rule 16 (Termo -> Termo * Factor .)
-    ROF             reduce using rule 16 (Termo -> Termo * Factor .)
-    >               reduce using rule 16 (Termo -> Termo * Factor .)
-    <               reduce using rule 16 (Termo -> Termo * Factor .)
-    =               reduce using rule 16 (Termo -> Termo * Factor .)
-    !               reduce using rule 16 (Termo -> Termo * Factor .)
+    *               reduce using rule 20 (Termo -> Termo * Factor .)
+    /               reduce using rule 20 (Termo -> Termo * Factor .)
+    +               reduce using rule 20 (Termo -> Termo * Factor .)
+    -               reduce using rule 20 (Termo -> Termo * Factor .)
+    PRINT           reduce using rule 20 (Termo -> Termo * Factor .)
+    READ            reduce using rule 20 (Termo -> Termo * Factor .)
+    WRITE           reduce using rule 20 (Termo -> Termo * Factor .)
+    START           reduce using rule 20 (Termo -> Termo * Factor .)
+    id              reduce using rule 20 (Termo -> Termo * Factor .)
+    IF              reduce using rule 20 (Termo -> Termo * Factor .)
+    FOR             reduce using rule 20 (Termo -> Termo * Factor .)
+    END             reduce using rule 20 (Termo -> Termo * Factor .)
+    num             reduce using rule 20 (Termo -> Termo * Factor .)
+    (               reduce using rule 20 (Termo -> Termo * Factor .)
+    $end            reduce using rule 20 (Termo -> Termo * Factor .)
+    )               reduce using rule 20 (Termo -> Termo * Factor .)
+    ;               reduce using rule 20 (Termo -> Termo * Factor .)
+    ELSE            reduce using rule 20 (Termo -> Termo * Factor .)
+    FI              reduce using rule 20 (Termo -> Termo * Factor .)
+    ROF             reduce using rule 20 (Termo -> Termo * Factor .)
+    >               reduce using rule 20 (Termo -> Termo * Factor .)
+    <               reduce using rule 20 (Termo -> Termo * Factor .)
+    =               reduce using rule 20 (Termo -> Termo * Factor .)
+    !               reduce using rule 20 (Termo -> Termo * Factor .)
 
 
 state 46
 
-    (17) Termo -> Termo / Factor .
+    (21) Termo -> Termo / Factor .
 
-    *               reduce using rule 17 (Termo -> Termo / Factor .)
-    /               reduce using rule 17 (Termo -> Termo / Factor .)
-    +               reduce using rule 17 (Termo -> Termo / Factor .)
-    -               reduce using rule 17 (Termo -> Termo / Factor .)
-    PRINT           reduce using rule 17 (Termo -> Termo / Factor .)
-    READ            reduce using rule 17 (Termo -> Termo / Factor .)
-    WRITE           reduce using rule 17 (Termo -> Termo / Factor .)
-    START           reduce using rule 17 (Termo -> Termo / Factor .)
-    id              reduce using rule 17 (Termo -> Termo / Factor .)
-    IF              reduce using rule 17 (Termo -> Termo / Factor .)
-    FOR             reduce using rule 17 (Termo -> Termo / Factor .)
-    END             reduce using rule 17 (Termo -> Termo / Factor .)
-    num             reduce using rule 17 (Termo -> Termo / Factor .)
-    (               reduce using rule 17 (Termo -> Termo / Factor .)
-    $end            reduce using rule 17 (Termo -> Termo / Factor .)
-    )               reduce using rule 17 (Termo -> Termo / Factor .)
-    ;               reduce using rule 17 (Termo -> Termo / Factor .)
-    ELSE            reduce using rule 17 (Termo -> Termo / Factor .)
-    FI              reduce using rule 17 (Termo -> Termo / Factor .)
-    ROF             reduce using rule 17 (Termo -> Termo / Factor .)
-    >               reduce using rule 17 (Termo -> Termo / Factor .)
-    <               reduce using rule 17 (Termo -> Termo / Factor .)
-    =               reduce using rule 17 (Termo -> Termo / Factor .)
-    !               reduce using rule 17 (Termo -> Termo / Factor .)
+    *               reduce using rule 21 (Termo -> Termo / Factor .)
+    /               reduce using rule 21 (Termo -> Termo / Factor .)
+    +               reduce using rule 21 (Termo -> Termo / Factor .)
+    -               reduce using rule 21 (Termo -> Termo / Factor .)
+    PRINT           reduce using rule 21 (Termo -> Termo / Factor .)
+    READ            reduce using rule 21 (Termo -> Termo / Factor .)
+    WRITE           reduce using rule 21 (Termo -> Termo / Factor .)
+    START           reduce using rule 21 (Termo -> Termo / Factor .)
+    id              reduce using rule 21 (Termo -> Termo / Factor .)
+    IF              reduce using rule 21 (Termo -> Termo / Factor .)
+    FOR             reduce using rule 21 (Termo -> Termo / Factor .)
+    END             reduce using rule 21 (Termo -> Termo / Factor .)
+    num             reduce using rule 21 (Termo -> Termo / Factor .)
+    (               reduce using rule 21 (Termo -> Termo / Factor .)
+    $end            reduce using rule 21 (Termo -> Termo / Factor .)
+    )               reduce using rule 21 (Termo -> Termo / Factor .)
+    ;               reduce using rule 21 (Termo -> Termo / Factor .)
+    ELSE            reduce using rule 21 (Termo -> Termo / Factor .)
+    FI              reduce using rule 21 (Termo -> Termo / Factor .)
+    ROF             reduce using rule 21 (Termo -> Termo / Factor .)
+    >               reduce using rule 21 (Termo -> Termo / Factor .)
+    <               reduce using rule 21 (Termo -> Termo / Factor .)
+    =               reduce using rule 21 (Termo -> Termo / Factor .)
+    !               reduce using rule 21 (Termo -> Termo / Factor .)
 
 
 state 47
@@ -1220,8 +1220,8 @@ state 47
     (33) Condition -> IF ( Exp . < = Termo ) THEN Comandos ELSE Comandos FI
     (34) Condition -> IF ( Exp . = = Termo ) THEN Comandos ELSE Comandos FI
     (35) Condition -> IF ( Exp . ! = Termo ) THEN Comandos ELSE Comandos FI
-    (13) Exp -> Exp . + Termo
-    (14) Exp -> Exp . - Termo
+    (17) Exp -> Exp . + Termo
+    (18) Exp -> Exp . - Termo
 
     >               shift and go to state 54
     <               shift and go to state 55
@@ -1233,32 +1233,32 @@ state 47
 
 state 48
 
-    (21) Factor -> ( Exp ) .
+    (25) Factor -> ( Exp ) .
 
-    *               reduce using rule 21 (Factor -> ( Exp ) .)
-    /               reduce using rule 21 (Factor -> ( Exp ) .)
-    +               reduce using rule 21 (Factor -> ( Exp ) .)
-    -               reduce using rule 21 (Factor -> ( Exp ) .)
-    PRINT           reduce using rule 21 (Factor -> ( Exp ) .)
-    READ            reduce using rule 21 (Factor -> ( Exp ) .)
-    WRITE           reduce using rule 21 (Factor -> ( Exp ) .)
-    START           reduce using rule 21 (Factor -> ( Exp ) .)
-    id              reduce using rule 21 (Factor -> ( Exp ) .)
-    IF              reduce using rule 21 (Factor -> ( Exp ) .)
-    FOR             reduce using rule 21 (Factor -> ( Exp ) .)
-    END             reduce using rule 21 (Factor -> ( Exp ) .)
-    num             reduce using rule 21 (Factor -> ( Exp ) .)
-    (               reduce using rule 21 (Factor -> ( Exp ) .)
-    $end            reduce using rule 21 (Factor -> ( Exp ) .)
-    )               reduce using rule 21 (Factor -> ( Exp ) .)
-    ;               reduce using rule 21 (Factor -> ( Exp ) .)
-    ELSE            reduce using rule 21 (Factor -> ( Exp ) .)
-    FI              reduce using rule 21 (Factor -> ( Exp ) .)
-    ROF             reduce using rule 21 (Factor -> ( Exp ) .)
-    >               reduce using rule 21 (Factor -> ( Exp ) .)
-    <               reduce using rule 21 (Factor -> ( Exp ) .)
-    =               reduce using rule 21 (Factor -> ( Exp ) .)
-    !               reduce using rule 21 (Factor -> ( Exp ) .)
+    *               reduce using rule 25 (Factor -> ( Exp ) .)
+    /               reduce using rule 25 (Factor -> ( Exp ) .)
+    +               reduce using rule 25 (Factor -> ( Exp ) .)
+    -               reduce using rule 25 (Factor -> ( Exp ) .)
+    PRINT           reduce using rule 25 (Factor -> ( Exp ) .)
+    READ            reduce using rule 25 (Factor -> ( Exp ) .)
+    WRITE           reduce using rule 25 (Factor -> ( Exp ) .)
+    START           reduce using rule 25 (Factor -> ( Exp ) .)
+    id              reduce using rule 25 (Factor -> ( Exp ) .)
+    IF              reduce using rule 25 (Factor -> ( Exp ) .)
+    FOR             reduce using rule 25 (Factor -> ( Exp ) .)
+    END             reduce using rule 25 (Factor -> ( Exp ) .)
+    num             reduce using rule 25 (Factor -> ( Exp ) .)
+    (               reduce using rule 25 (Factor -> ( Exp ) .)
+    $end            reduce using rule 25 (Factor -> ( Exp ) .)
+    )               reduce using rule 25 (Factor -> ( Exp ) .)
+    ;               reduce using rule 25 (Factor -> ( Exp ) .)
+    ELSE            reduce using rule 25 (Factor -> ( Exp ) .)
+    FI              reduce using rule 25 (Factor -> ( Exp ) .)
+    ROF             reduce using rule 25 (Factor -> ( Exp ) .)
+    >               reduce using rule 25 (Factor -> ( Exp ) .)
+    <               reduce using rule 25 (Factor -> ( Exp ) .)
+    =               reduce using rule 25 (Factor -> ( Exp ) .)
+    !               reduce using rule 25 (Factor -> ( Exp ) .)
 
 
 state 49
@@ -1322,7 +1322,7 @@ state 52
 
 state 53
 
-    (26) Writing -> WRITE id [ num . ]
+    (15) Writing -> WRITE id [ num . ]
 
     ]               shift and go to state 63
 
@@ -1331,14 +1331,14 @@ state 54
 
     (30) Condition -> IF ( Exp > . Termo ) THEN Comandos ELSE Comandos FI
     (32) Condition -> IF ( Exp > . = Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1356,14 +1356,14 @@ state 55
 
     (31) Condition -> IF ( Exp < . Termo ) THEN Comandos ELSE Comandos FI
     (33) Condition -> IF ( Exp < . = Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1407,11 +1407,11 @@ state 59
     (39) Cicle -> FOR ( Atrib ; . Factor > = Factor ; Atrib ) Comandos ROF
     (40) Cicle -> FOR ( Atrib ; . Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> FOR ( Atrib ; . Factor ! = Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1448,29 +1448,29 @@ state 62
 
 state 63
 
-    (26) Writing -> WRITE id [ num ] .
+    (15) Writing -> WRITE id [ num ] .
 
-    PRINT           reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    READ            reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    WRITE           reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    START           reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    id              reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    IF              reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    FOR             reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    END             reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    num             reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    (               reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    $end            reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    ELSE            reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    FI              reduce using rule 26 (Writing -> WRITE id [ num ] .)
-    ROF             reduce using rule 26 (Writing -> WRITE id [ num ] .)
+    PRINT           reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    READ            reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    WRITE           reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    START           reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    id              reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    IF              reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    FOR             reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    END             reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    num             reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    (               reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    $end            reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    ELSE            reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    FI              reduce using rule 15 (Writing -> WRITE id [ num ] .)
+    ROF             reduce using rule 15 (Writing -> WRITE id [ num ] .)
 
 
 state 64
 
     (30) Condition -> IF ( Exp > Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 75
     *               shift and go to state 34
@@ -1480,14 +1480,14 @@ state 64
 state 65
 
     (32) Condition -> IF ( Exp > = . Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1503,8 +1503,8 @@ state 65
 state 66
 
     (31) Condition -> IF ( Exp < Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 77
     *               shift and go to state 34
@@ -1514,14 +1514,14 @@ state 66
 state 67
 
     (33) Condition -> IF ( Exp < = . Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1537,14 +1537,14 @@ state 67
 state 68
 
     (34) Condition -> IF ( Exp = = . Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1560,14 +1560,14 @@ state 68
 state 69
 
     (35) Condition -> IF ( Exp ! = . Termo ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1675,8 +1675,8 @@ state 75
 state 76
 
     (32) Condition -> IF ( Exp > = Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 89
     *               shift and go to state 34
@@ -1693,8 +1693,8 @@ state 77
 state 78
 
     (33) Condition -> IF ( Exp < = Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 91
     *               shift and go to state 34
@@ -1704,8 +1704,8 @@ state 78
 state 79
 
     (34) Condition -> IF ( Exp = = Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 92
     *               shift and go to state 34
@@ -1715,8 +1715,8 @@ state 79
 state 80
 
     (35) Condition -> IF ( Exp ! = Termo . ) THEN Comandos ELSE Comandos FI
-    (16) Termo -> Termo . * Factor
-    (17) Termo -> Termo . / Factor
+    (20) Termo -> Termo . * Factor
+    (21) Termo -> Termo . / Factor
 
     )               shift and go to state 93
     *               shift and go to state 34
@@ -1734,11 +1734,11 @@ state 82
 
     (36) Cicle -> FOR ( Atrib ; Factor < . Factor ; Atrib ) Comandos ROF
     (38) Cicle -> FOR ( Atrib ; Factor < . = Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1755,11 +1755,11 @@ state 83
 
     (37) Cicle -> FOR ( Atrib ; Factor > . Factor ; Atrib ) Comandos ROF
     (39) Cicle -> FOR ( Atrib ; Factor > . = Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1836,13 +1836,13 @@ state 88
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -1859,14 +1859,14 @@ state 88
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -1919,13 +1919,13 @@ state 90
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -1942,14 +1942,14 @@ state 90
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2018,11 +2018,11 @@ state 95
 state 96
 
     (38) Cicle -> FOR ( Atrib ; Factor < = . Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2044,11 +2044,11 @@ state 97
 state 98
 
     (39) Cicle -> FOR ( Atrib ; Factor > = . Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2063,11 +2063,11 @@ state 98
 state 99
 
     (40) Cicle -> FOR ( Atrib ; Factor = = . Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2082,11 +2082,11 @@ state 99
 state 100
 
     (41) Cicle -> FOR ( Atrib ; Factor ! = . Factor ; Atrib ) Comandos ROF
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2126,13 +2126,13 @@ state 103
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2149,14 +2149,14 @@ state 103
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2202,13 +2202,13 @@ state 104
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2225,14 +2225,14 @@ state 104
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2277,13 +2277,13 @@ state 105
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2300,14 +2300,14 @@ state 105
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2353,13 +2353,13 @@ state 106
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2376,14 +2376,14 @@ state 106
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2429,13 +2429,13 @@ state 107
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2452,14 +2452,14 @@ state 107
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2505,13 +2505,13 @@ state 108
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2528,14 +2528,14 @@ state 108
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2690,13 +2690,13 @@ state 118
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2713,14 +2713,14 @@ state 118
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2765,13 +2765,13 @@ state 119
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2788,14 +2788,14 @@ state 119
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2841,13 +2841,13 @@ state 120
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2864,14 +2864,14 @@ state 120
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2916,13 +2916,13 @@ state 121
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -2939,14 +2939,14 @@ state 121
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -2991,13 +2991,13 @@ state 122
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3014,14 +3014,14 @@ state 122
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3066,13 +3066,13 @@ state 123
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3089,14 +3089,14 @@ state 123
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3206,13 +3206,13 @@ state 131
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3229,14 +3229,14 @@ state 131
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3282,13 +3282,13 @@ state 132
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3305,14 +3305,14 @@ state 132
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3357,13 +3357,13 @@ state 133
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3380,14 +3380,14 @@ state 133
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3433,13 +3433,13 @@ state 134
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3456,14 +3456,14 @@ state 134
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3509,13 +3509,13 @@ state 135
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3532,14 +3532,14 @@ state 135
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3585,13 +3585,13 @@ state 136
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3608,14 +3608,14 @@ state 136
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3661,13 +3661,13 @@ state 137
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3684,14 +3684,14 @@ state 137
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3744,13 +3744,13 @@ state 139
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3767,14 +3767,14 @@ state 139
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3860,13 +3860,13 @@ state 144
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3883,14 +3883,14 @@ state 144
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -3955,13 +3955,13 @@ state 146
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -3978,14 +3978,14 @@ state 146
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4030,13 +4030,13 @@ state 147
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4053,14 +4053,14 @@ state 147
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4105,13 +4105,13 @@ state 148
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4128,14 +4128,14 @@ state 148
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4180,13 +4180,13 @@ state 149
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4203,14 +4203,14 @@ state 149
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4256,13 +4256,13 @@ state 150
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4279,14 +4279,14 @@ state 150
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4331,13 +4331,13 @@ state 151
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4354,14 +4354,14 @@ state 151
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4407,13 +4407,13 @@ state 152
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4430,14 +4430,14 @@ state 152
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4483,13 +4483,13 @@ state 153
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4506,14 +4506,14 @@ state 153
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4559,13 +4559,13 @@ state 154
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4582,14 +4582,14 @@ state 154
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4734,13 +4734,13 @@ state 160
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4757,14 +4757,14 @@ state 160
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4829,13 +4829,13 @@ state 162
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4852,14 +4852,14 @@ state 162
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4904,13 +4904,13 @@ state 163
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -4927,14 +4927,14 @@ state 163
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
@@ -4979,13 +4979,13 @@ state 164
     (10) Comando -> . Cicle
     (11) Comando -> . End
     (12) Printing -> . PRINT frase
-    (24) Reading -> . READ id
-    (25) Writing -> . WRITE id
-    (26) Writing -> . WRITE id [ num ]
-    (27) Start -> . START
-    (13) Exp -> . Exp + Termo
-    (14) Exp -> . Exp - Termo
-    (15) Exp -> . Termo
+    (13) Reading -> . READ id
+    (14) Writing -> . WRITE id
+    (15) Writing -> . WRITE id [ num ]
+    (16) Start -> . START
+    (17) Exp -> . Exp + Termo
+    (18) Exp -> . Exp - Termo
+    (19) Exp -> . Termo
     (29) Atrib -> . id = Exp
     (43) Atrib -> . id [ num ] = num
     (45) Atrib -> . id [ num ] [ num ] = num
@@ -5002,14 +5002,14 @@ state 164
     (40) Cicle -> . FOR ( Atrib ; Factor = = Factor ; Atrib ) Comandos ROF
     (41) Cicle -> . FOR ( Atrib ; Factor ! = Factor ; Atrib ) Comandos ROF
     (28) End -> . END
-    (16) Termo -> . Termo * Factor
-    (17) Termo -> . Termo / Factor
-    (18) Termo -> . Factor
-    (19) Factor -> . id
-    (20) Factor -> . num
-    (21) Factor -> . ( Exp )
-    (22) Factor -> . Array
-    (23) Factor -> . Matriz
+    (20) Termo -> . Termo * Factor
+    (21) Termo -> . Termo / Factor
+    (22) Termo -> . Factor
+    (23) Factor -> . id
+    (24) Factor -> . num
+    (25) Factor -> . ( Exp )
+    (26) Factor -> . Array
+    (27) Factor -> . Matriz
     (42) Array -> . id [ num ]
     (44) Matriz -> . id [ num ] [ num ]
 
