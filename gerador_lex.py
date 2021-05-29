@@ -14,7 +14,7 @@ reserved = {
     'end' : 'END',
  }
 tokens = ['num','id','frase'] + list(reserved.values())
-literals = ['(',')','!','>','<','+','-','*','/',';','=',']','[']
+literals = ['(',')','!','>','<','+','-','*','/',';','=',']','[','%']
 
 t_num = r'\d+'
 

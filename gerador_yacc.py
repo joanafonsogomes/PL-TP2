@@ -39,7 +39,7 @@ def p_Reading(p):
         if key == p[2]:
             p[0] = 'READ\nATOI\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
             flag=0
-           # file_vm.write(p[0])
+            file_vm.write(p[0])
     if(flag==1):
         if(f==1):
             sys.exit("Erro: Impossivel declarar variavel")
@@ -93,7 +93,11 @@ def p_Termo_div(p):
     else:
         print ("Erro: divisao por 0, a continuar com 0...)")
         p[0] = str(0)
-        # file_vm.write(p[0])
+        
+def p_Termo_mod(p):
+    "Termo : Termo '%' Factor"
+    if(p[3] != 0):
+        p[0] = p[1]+ p[3]+ 'MOD\n'
 
 def p_Termo_factor(p):
     "Termo : Factor"
@@ -240,19 +244,35 @@ def p_Array(p):
         i= i+ int(p[3])
 
 def p_Atrib_Array(p):
-    "Atrib : id '[' num ']' '=' num"
-    indice = p.parser.registers.get(p[1])
-    if(str(indice)=='None' ):
-        string = "ERRO: Variavel " +p[1] +" por declarar!"
-        sys.exit(string)
-    else:
-        z=int(p.parser.registers_array.get(p[1]))
-        y=int(p[3])
-        if(z>y and y>=0):
-            p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ p[3]+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
-        else:
-            string = "Indexacao indisponivel! (" + str(z) +" menor ou igual a " + str(y) +")" 
+    "Atrib : id '[' Termo ']' '=' num"
+    indicee = p.parser.registers.get(p[3])
+    if(str(indicee)=='None'):
+        indice = p.parser.registers.get(p[1])
+        if(str(indice)=='None' ):
+            string = "ERRO: Variavel " +p[1] +" por declarar!"
             sys.exit(string)
+        else:
+            z=int(p.parser.registers_array.get(p[1]))
+            y=int(p[3])
+            if(z>y and y>=0):
+                p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ p[3]+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
+            else:
+                string = "Indexacao indisponivel! (" + str(z) +" menor ou igual a " + str(y) +")" 
+                sys.exit(string)
+    else:
+        indice = p.parser.registers.get(p[1])
+        if(str(indice)=='None' ):
+                string = "ERRO: Variavel " +p[1] +" por declarar!"
+                sys.exit(string)
+        else:
+                z=int(p.parser.registers_array.get(p[1]))
+                y=int(p.parser.registers.get(p[3]))
+                if(z>y and y>=0):
+                    p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ str(y)+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
+                else:
+                    string = "Indexacao indisponivel! (" + str(z) +" menor ou igual a " + str(y) +")" 
+                    sys.exit(string)
+
             
 def p_Matriz(p):
     "Matriz : id '[' num ']' '[' num ']'"
