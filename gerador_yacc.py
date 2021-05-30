@@ -57,7 +57,7 @@ def p_Writing(p):
 def p_Writing_Array(p):
     "Writing : WRITE id '[' Factor ']'"
     indice = p.parser.registers.get(p[2])
-    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' +  p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
+    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' +  p[4] + 'LOADN\n' + 'WRITEI\n'
 
 
 
@@ -238,13 +238,15 @@ def p_Cicle_not_igual(p):
 
 def p_Array(p):
     "Array : id '[' Factor ']'"
+    indice = p.parser.registers.get(p[1])
     global i
-    p.parser.registers.update({p[1]: i})
-    string = p[3].split()
-    p.parser.registers_array.update({p[1]: string[1]})
-    p[0] = 'PUSHN ' +string[1]+ '\n'
-    i= i+ int(string[1])
-    print(p[0])
+    if(str(indice)=='None' ):
+        p.parser.registers.update({p[1]: i})
+        string = p[3].split()
+        p[0] = 'PUSHN ' +string[1]+ '\n'
+        i= i+ int(string[1])
+    else: 
+        p[0] = p[3]
 
 def p_Atrib_Array(p):
     "Atrib : id '[' Factor ']' '=' Factor"
@@ -253,42 +255,39 @@ def p_Atrib_Array(p):
         string = "ERRO: Variavel " +p[1] +" por declarar!"
         sys.exit(string)
     else:
-        z=int(p.parser.registers_array.get(p[1]))
-        p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' +'PADD\n' + str(p[3])+'\n' + str(p[6]) +'\n'+ 'STOREN\n' 
-        print(p[0])        
+        p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' +'PADD\n' + str(p[3])+ str(p[6]) +'STOREN\n' 
 
 def p_Matriz(p):
     "Matriz : id '[' Factor ']' '[' Factor ']'"
     global i
+    indice = p.parser.registers.get(p[1])
     # apenas para saber quantas celulas da matriz existem ao todo
-    m = int(int(p[3])) *  int(int(p[6]))
-    p.parser.registers_array.update({p[1]: m})
-    p.parser.registers.update({p[1]: i})
-    p.parser.registers_linhas.update({p[1]: p[3]})
-    p.parser.registers_colunas.update({p[1]: p[6]})
-    p[0] = 'PUSHN ' +str(m)+ '\n'
-    i= i+ m
-
+    if(str(indice)=='None'):
+        s1 = p[3].split()
+        s2 = p[6].split()
+        m = int(int(s1[1])) *  int(int(s2[1]))
+        p.parser.registers.update({p[1]: i})
+        p.parser.registers_linhas.update({p[1]: int(s1[1])})
+        p[0] = 'PUSHN ' +str(m)+ '\n'
+        i= i+ m
+    else:
+        p[0] = p[3] + p[6]
 
 def p_Atrib_Matriz(p):
     "Atrib : id '[' Factor ']' '[' Factor ']' '=' Factor"
     # apenas para saber qual o indice maior que se pretende
     # para depois se comparar com o numero de celulas
     # subtrai-se um porque e de 0 a n-1
-    m = (int(p[3])+1 *  int(p[6])+1) -1
+    s1 = p[3].split()
+    s2 = p[6].split()
+    m = (int(s1[1])+1 *  int(s2[1])+1) -1
     indice = p.parser.registers.get(p[1])
     if(str(indice) == 'None'):
         string = "ERRO: Variavel " +p[1] +" por declarar!"
         sys.exit(string)
     else:
-        if(p.parser.registers_linhas.get(p[1])> int(p[3])
-                and int(p[3])>=0
-                and p.parser.registers_colunas.get(p[1])>int(p[6])
-                and int(p[6])>=0):
-            elementos_linha= p.parser.registers_linhas.get(p[1])
-            p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ p[3]+ '\n'+'PUSHI '+ str(elementos_linha)+'\n'+'MUL\n'+ 'PUSHI '+p[6]+'\n' +'ADD\n' +'PUSHI '+ p[9] +'\n'+ 'STOREN\n' 
-        else:
-            sys.exit("Indexacao indisponivel!")
+        elementos_linha= p.parser.registers_linhas.get(p[1])
+        p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +str(p[3])+ '\n'+'PUSHI '+ str(elementos_linha)+'\n'+'MUL\n'+str(p[6]) +'ADD\n' + str(p[9]) +'STOREN\n' 
 
 
 #Error value for syntax errors
@@ -302,9 +301,7 @@ parser =  yacc.yacc()
 # my state
 # dicionario inicializado a vazio
 parser.registers = {}
-parser.registers_array = {}
-parser.registers_linhas = {}
-parser.registers_colunas = {}
+parser.registers_linhas ={}
 #GENERATE file.vm
 global i
 global count
