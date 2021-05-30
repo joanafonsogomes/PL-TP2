@@ -5,7 +5,7 @@ s=10
 start
 for(i=0; i<5; i=i+1) x[i]=s s=s-1 rof
 print "IMPARES \n" 
-for (i=0; i<5; i=i+1) if (x[i]%2==0) then 0 else k=k+1 write x[i] print "   " fi rof
+for(i=0; i<5; i=i+1) if (x[i]%2==0) then 0 else k=k+1 write x[i] print "   " fi rof
 print "\nCOUNT\n" 
 write i
 end
