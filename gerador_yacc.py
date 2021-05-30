@@ -31,6 +31,7 @@ def p_Printing(p):
     "Printing : PRINT frase"
     p[0] = 'PUSHS ' +p[2] +'\n' + 'WRITES\n' 
 
+
 def p_Reading(p):
     "Reading : READ id"
     global i
@@ -54,9 +55,10 @@ def p_Writing(p):
     p[0]= 'PUSHG ' + str(indice) +'\n'+ 'WRITEI\n'
 
 def p_Writing_Array(p):
-    "Writing : WRITE id '[' num ']'"
+    "Writing : WRITE id '[' Factor ']'"
     indice = p.parser.registers.get(p[2])
-    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' + 'PUSHI ' + p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
+    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' +  p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
+
 
 
 def p_Start(p):
@@ -66,7 +68,7 @@ def p_Start(p):
     f=1
 
 def p_Exp_add(p):
-    "Exp : Exp '+' Termo" 
+    "Exp : Exp '+' Termo"
     p[0] = p[1]+ p[3]+ 'ADD\n'
     # file_vm.write(p[0])
 
@@ -144,6 +146,7 @@ def p_End(p):
     file_vm.write(p[0])
     file_vm.close()
     sys.exit("Programa compilado com sucesso!")
+
 
 def p_Atrib(p):
     "Atrib : id '=' Exp"
@@ -234,49 +237,28 @@ def p_Cicle_not_igual(p):
     count=count+2
 
 def p_Array(p):
-    "Array : id '[' num ']'"
+    "Array : id '[' Factor ']'"
     global i
-    if(f==1):
-        sys.exit("Erro: Impossivel declaral variavel")
-    else:
-        p.parser.registers.update({p[1]: i})
-        p.parser.registers_array.update({p[1]: p[3]})
-        p[0] = 'PUSHN ' +p[3]+ '\n'
-        i= i+ int(p[3])
+    p.parser.registers.update({p[1]: i})
+    string = p[3].split()
+    p.parser.registers_array.update({p[1]: string[1]})
+    p[0] = 'PUSHN ' +string[1]+ '\n'
+    i= i+ int(string[1])
+    print(p[0])
 
 def p_Atrib_Array(p):
-    "Atrib : id '[' num ']' '=' num"
-    indicee = p.parser.registers.get(p[3])
-    if(str(indicee)=='None'):
-        indice = p.parser.registers.get(p[1])
-        if(str(indice)=='None' ):
-            string = "ERRO: Variavel " +p[1] +" por declarar!"
-            sys.exit(string)
-        else:
-            z=int(p.parser.registers_array.get(p[1]))
-            y=int(p[3])
-            if(z>y and y>=0):
-                p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ p[3]+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
-            else:
-                string = "Indexacao indisponivel! (" + str(z) +" menor ou igual a " + str(y) +")" 
-                sys.exit(string)
+    "Atrib : id '[' Factor ']' '=' Factor"
+    indice = p.parser.registers.get(p[1])
+    if(str(indice)=='None' ):
+        string = "ERRO: Variavel " +p[1] +" por declarar!"
+        sys.exit(string)
     else:
-        indice = p.parser.registers.get(p[1])
-        if(str(indice)=='None' ):
-                string = "ERRO: Variavel " +p[1] +" por declarar!"
-                sys.exit(string)
-        else:
-                z=int(p.parser.registers_array.get(p[1]))
-                y=int(p.parser.registers.get(p[3]))
-                if(z>y and y>=0):
-                    p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' 'PADD\n' +'PUSHI '+ str(y)+'\n' +'PUSHI '+ p[6] +'\n'+ 'STOREN\n' 
-                else:
-                    string = "Indexacao indisponivel! (" + str(z) +" menor ou igual a " + str(y) +")" 
-                    sys.exit(string)
+        z=int(p.parser.registers_array.get(p[1]))
+        p[0] = 'PUSHGP\n' + 'PUSHI '+str(indice) +'\n' +'PADD\n' + str(p[3])+'\n' + str(p[6]) +'\n'+ 'STOREN\n' 
+        print(p[0])        
 
-            
 def p_Matriz(p):
-    "Matriz : id '[' num ']' '[' num ']'"
+    "Matriz : id '[' Factor ']' '[' Factor ']'"
     global i
     # apenas para saber quantas celulas da matriz existem ao todo
     m = int(int(p[3])) *  int(int(p[6]))
@@ -289,7 +271,7 @@ def p_Matriz(p):
 
 
 def p_Atrib_Matriz(p):
-    "Atrib : id '[' num ']' '[' num ']' '=' num"
+    "Atrib : id '[' Factor ']' '[' Factor ']' '=' Factor"
     # apenas para saber qual o indice maior que se pretende
     # para depois se comparar com o numero de celulas
     # subtrai-se um porque e de 0 a n-1
@@ -325,7 +307,6 @@ parser.registers_linhas = {}
 parser.registers_colunas = {}
 #GENERATE file.vm
 global i
-global f
 global count
 i=0
 f=0
