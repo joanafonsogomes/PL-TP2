@@ -40,7 +40,7 @@ def p_Reading(p):
         if key == p[2]:
             p[0] = 'READ\nATOI\n'+ 'STOREG '+ str(p.parser.registers.get(key)) +'\n'
             flag=0
-            file_vm.write(p[0])
+            # file_vm.write(p[0])
     if(flag==1):
         if(f==1):
             sys.exit("Erro: Impossivel declarar variavel")
@@ -55,10 +55,9 @@ def p_Writing(p):
     p[0]= 'PUSHG ' + str(indice) +'\n'+ 'WRITEI\n'
 
 def p_Writing_Array(p):
-    "Writing : WRITE id '[' Factor ']'"
+    "Writing : WRITE id '[' num ']'"
     indice = p.parser.registers.get(p[2])
-    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' +  p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
-
+    p[0] = 'PUSHGP\n' + 'PUSHI ' + str(indice) +'\n' + 'PADD\n' + 'PUSHI ' + p[4] +'\n'+ 'LOADN\n' + 'WRITEI\n'
 
 
 def p_Start(p):
